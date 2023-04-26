@@ -1,25 +1,25 @@
-from classes.game import Person, bcolors
-from classes.magic import Spell
+from classes.game import person, bcolors
+from classes.magic import spell
 
-#Black Magic
-fire = Spell("Fire", 10, 100, "black")
-thunder = Spell("Thunder", 15, 150, "black")
-blizzard = Spell("Blizzard", 5, 50, "black")
-meteor = Spell("Fire", 20, 200, "black")
+# Black Magic
+fire = spell("Fire", 10, 100, "black")
+thunder = spell("Thunder", 15, 150, "black")
+blizzard = spell("Blizzard", 5, 50, "black")
+meteor = spell("Fire", 20, 200, "black")
 
-#White Magic
-cure = Spell("cure", 5, 50, "white")
-cura = Spell("cura", 10, 100, "white")
-curaga = Spell("curaga", 15, 150, "white")
+# White Magic
+cure = spell("cure", 5, 50, "white")
+cura = spell("cura", 10, 100, "white")
+curaga = spell("curaga", 15, 150, "white")
 
 
 magic = [{"name": "Fire", "cost": 10, "dmg": 60},
          {"name": "Thunder", "cost": 15, "dmg": 150},
          {"name": "Blizzard", "cost": 5, "dmg": 50}]
 
-#Python code goes here
-player = Person(460, 65, 60, 34, [fire, thunder, blizzard, meteor, cure, cura, curaga])
-enemy = Person(1200, 65, 45, 25, [])
+# Python code goes here
+player = person(460, 65, 60, 34, [fire, thunder, blizzard, meteor, cure, cura, curaga])
+enemy = person(1200, 65, 45, 25, [])
 
 running = True
 i = 0
@@ -67,7 +67,6 @@ while running:
 
     print("Player HP:", bcolors.OKGREEN + str(player.get_hp()) + "/" + str(player.get_max_hp()) + bcolors.ENDC + "\n")
     print("Player MP:", bcolors.OKBLUE + str(player.get_mp()) + "/" + str(player.get_max_mp()) + bcolors.ENDC + "\n")
-
 
     if enemy.get_hp() == 0:
         print(bcolors.OKGREEN + "You Won!" + bcolors.ENDC)
