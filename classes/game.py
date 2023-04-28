@@ -1,6 +1,8 @@
 import random
 import pprint
 
+from .magic import spell
+
 class bcolors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
@@ -60,15 +62,14 @@ class person:
 
     def choose_action(self):
         i = 1
-        print("Actions")
+        print(bcolors.OKBLUE + bcolors.BOLD + "  Actions:" + bcolors.ENDC)
         for item in self.actions:
             print(str(i) + ":", item)
             i += 1
 
     def choose_magic(self):
         i = 1
-        print("Magic")
+        print(bcolors.OKBLUE + bcolors.BOLD + "  Magic:" + bcolors.ENDC)
         for spell in self.magic:
-            print(str(i) + ":", spell.name,
-                  spell.cost, spell.name)
+            print(str(i) + ":", spell.name, "(cost:", str(spell["cost"])+ ")")
             i += 1
