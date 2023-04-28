@@ -2,20 +2,16 @@ from classes.game import person, bcolors
 from classes.magic import spell
 
 # Black Magic
-fire = spell("Fire", 10, 100, "black")
-thunder = spell("Thunder", 15, 150, "black")
-blizzard = spell("Blizzard", 5, 50, "black")
-meteor = spell("Fire", 20, 200, "black")
+fire = spell("Fire", "MP:", 10,   100)
+thunder = spell("Thunder", "cost:", 15, 150)
+blizzard = spell("Blizzard", "cost:", 5, 50)
+meteor = spell("Fire", "cost:", 20, 200,)
 
 # White Magic
 cure = spell("cure", 5, 50, "white")
 cura = spell("cura", 10, 100, "white")
 curaga = spell("curaga", 15, 150, "white")
 
-
-magic = [{"name": "Fire", "cost": 10, "dmg": 60},
-         {"name": "Thunder", "cost": 15, "dmg": 150},
-         {"name": "Blizzard", "cost": 5, "dmg": 50}]
 
 # Python code goes here
 player = person(460, 65, 60, 34, [fire, thunder, blizzard, meteor, cure, cura, curaga])
@@ -38,14 +34,14 @@ while running:
         print("You attacked", dmg, "Points of DMG.")
     elif index == 1:
         player.choose_magic()
-        magic_choice = int(input("Choose Magic")) - 1
+        magic_choice = int(input("Choose Magic:")) - 1
 
         spell = player.magic[magic_choice]
         magic_dmg = spell.generate_damage()
 
         current_mp = player.get_mp()
 
-        if cost > current_mp:
+        if spell.cost > current_mp:
             print(bcolors.FAIL + "\nNot Enough MP\n" + bcolors.ENDC)
             continue
        
@@ -61,12 +57,13 @@ while running:
     print("Enemy Attacked", enemy_dmg)
 
 
-    print("----------------------")
+    print("======================")
+    print("Player HP:", bcolors.OKGREEN + str(player.get_hp()) + "/" + str(player.get_max_hp()) + bcolors.ENDC + "\n")
+    
+    print("Player MP:", bcolors.OKBLUE + str(player.get_mp()) + "/" + str(player.get_max_mp()) + bcolors.ENDC + "\n")
+    
     print("Enemy HP:", bcolors.FAIL + str(enemy.get_hp()) + "/" + str(enemy.get_max_hp()) + bcolors.ENDC + "\n")
 
-
-    print("Player HP:", bcolors.OKGREEN + str(player.get_hp()) + "/" + str(player.get_max_hp()) + bcolors.ENDC + "\n")
-    print("Player MP:", bcolors.OKBLUE + str(player.get_mp()) + "/" + str(player.get_max_mp()) + bcolors.ENDC + "\n")
 
     if enemy.get_hp() == 0:
         print(bcolors.OKGREEN + "You Won!" + bcolors.ENDC)
