@@ -24,7 +24,7 @@ class person:
         self.actions = ["Attack", "Magic"]
 
     def generate_damage(self):
-        return random.randrange(self.atkl, self.atkl)
+        return random.randrange(self.atkl, self.atkh)
 
     def generate_spell_damage(self, i):
         mgl = self.magic[i]["dmg"] - 5
@@ -69,6 +69,6 @@ class person:
         i = 1
         print("Magic")
         for spell in self.magic:
-            print(str(i) + ":", spell["name"],
-                  "(cost:", str(spell["mp"]) + ")")
+            print(str(i) + ":", spell.name,
+                  spell.cost, spell.name)
             i += 1
