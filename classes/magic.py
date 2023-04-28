@@ -6,8 +6,7 @@ class spell:
         self.name = name
         self.cost = cost
         self.dmg = dmg
-        self.type = reserved
-
+        
     def generate_damage(self):
         low = self.dmg - 15
         high = self.dmg + 15
