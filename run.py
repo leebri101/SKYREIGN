@@ -64,7 +64,7 @@ while running:
 
     print(bcolors.WHITE + bcolors.BOLD + "==================================")
     print("")
-    print("Player HP:", bcolors.OKGREEN + bcolors.BOLD + str(player.get_hp()) + "/" + str(player.get_max_hp()) + bcolors.ENDC + "\n")
+    print("Player HP:", bcolors.OKGREEN + str(player.get_hp()) + "/" + str(player.get_max_hp()) + bcolors.ENDC + "\n")
     
     print(bcolors.WHITE + bcolors.BOLD + "Player MP:", bcolors.OKBLUE + str(player.get_mp()) + "/" + str(player.get_max_mp()) + bcolors.ENDC + "\n")
     
