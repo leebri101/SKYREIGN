@@ -1,14 +1,15 @@
 import random
 import pprint
-
-from .magic import spell
+from classes.magic import spell
 
 class bcolors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
-    OKGREEN = '\033[92m'
     WARNING = '\033[93m'
+    OKGREEN = '\033[92m'
     FAIL = '\033[91m'
+    WHITE ='\033[37m'
+    CYAN = '\033[36m'
     ENDC = '\033[0m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
@@ -71,5 +72,5 @@ class person:
         i = 1
         print(bcolors.OKBLUE + bcolors.BOLD + "  Magic:" + bcolors.ENDC)
         for spell in self.magic:
-            print(str(i) + ":", spell.name, "(cost:", str(spell["cost"])+ ")")
+            print(str(i) + ":", spell.name, spell.cost)
             i += 1
