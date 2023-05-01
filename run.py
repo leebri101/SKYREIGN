@@ -15,7 +15,7 @@ curaga = spell("Curaga:", 15, 150, "white")
 
 
 # Python code goes here
-player = person(460, 65, 60, 34, [fire, thunder, blizzard, meteor, cure, cura, curaga])
+player = person(5460, 65, 60, 34, [fire, thunder, blizzard, meteor, cure, cura, curaga])
 enemy = person(1200, 65, 45, 25, [])
 
 running = True
@@ -52,7 +52,7 @@ while running:
         player.reduce_mp(spell.cost)
 
         if spell.charm == "white":
-            player.heal(magic_dmg)
+            person.heal(magic_dmg)
             print(bcolors.OKGREEN + "\n" + spell.name + " healed", str(magic_dmg), "HP" + bcolors.ENDC)
         elif spell.charm == "black":
             enemy.take_damage(magic_dmg)
