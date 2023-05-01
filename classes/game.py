@@ -1,6 +1,5 @@
 import random
 import pprint
-from class .magic import spell
 
 class bcolors:
     HEADER = '\033[95m'
@@ -14,7 +13,7 @@ class bcolors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
-class player:
+class person:
     def __init__(self, hp, mp, atk, df, magic):
         self.maxhp = hp
         self.hp = hp

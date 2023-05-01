@@ -8,7 +8,6 @@ class spell:
         self.dmg = dmg
         self.charm = charm
 
-
     def generate_damage(self):
         low = self.dmg - 15
         high = self.dmg + 15
