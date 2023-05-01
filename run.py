@@ -1,11 +1,11 @@
-from class .game import player, bcolors
-from class .magic import spell
+from classes.game import person, bcolors
+from classes.magic import spell
 
 # Black Magic
 fire = spell("Fire:", 10, 100, "black")
 thunder = spell("Thunder:", 15, 150, "black")
 blizzard = spell("Blizzard:", 5, 50, "black")
-meteor = spell("Fire:", 20, 200, "black")
+meteor = spell("Meteor:", 20, 200, "black")
 
 
 # White Magic
@@ -45,7 +45,6 @@ while running:
 
         current_mp = player.get_mp()
 
-        current_mp = input(spell.cost)
         if spell.cost > current_mp:
             print(bcolors.FAIL + bcolors.BOLD + "\nNot enough MP\n" + bcolors.ENDC)
             continue
@@ -56,10 +55,9 @@ while running:
             player.heal(magic_dmg)
             print(bcolors.OKGREEN + "\n" + spell.name + " healed", str(magic_dmg), "HP" + bcolors.ENDC)
         elif spell.charm == "black":
-        enemy.take_damage(magic_dmg)
-        print(bcolors.OKBLUE + "\n" + spell.name + " deals", str(magic_dmg), "damage" + bcolors.ENDC)
-
-
+            enemy.take_damage(magic_dmg)
+            print(bcolors.OKBLUE + "\n" + spell.name + " deals", str(magic_dmg), "damage" + bcolors.ENDC)
+        
     enemy_choice = 1
 
     enemy_dmg = enemy.generate_damage()
@@ -81,7 +79,3 @@ while running:
     elif player.get_hp() == 0:
         print(bcolors.FAIL + "Your party has been defeated!" + bcolors.ENDC)
         running = False
-   
-
-
-
