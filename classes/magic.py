@@ -2,11 +2,11 @@
 import random
 
 class spell:
-    def __init__(self, name, cost, dmg, type_of_magic):
+    def __init__(self, name, cost, dmg, charm):
         self.name = name
         self.cost = cost
         self.dmg = dmg
-        self.type_of_magic = type_of_magic
+        self.charm = charm
 
 
     def generate_damage(self):
