@@ -1,5 +1,5 @@
-from classes.game import person, bcolors
-from classes.magic import spell
+from class .game import player, bcolors
+from class .magic import spell
 
 # Black Magic
 fire = spell("Fire:", 10, 100, "black")
@@ -51,6 +51,11 @@ while running:
             continue
 
         player.reduce_mp(spell.cost)
+
+        if spell.charm == "white":
+            player.heal(magic_dmg)
+            print(bcolors.OKGREEN + "\n" + spell.name + " healed", str(magic_dmg), "HP" + bcolors.ENDC)
+        elif spell.charm == "black":
         enemy.take_damage(magic_dmg)
         print(bcolors.OKBLUE + "\n" + spell.name + " deals", str(magic_dmg), "damage" + bcolors.ENDC)
 
