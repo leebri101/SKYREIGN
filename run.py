@@ -52,7 +52,7 @@ while running:
         player.reduce_mp(spell.cost)
 
         if spell.charm == "white":
-            person.heal(magic_dmg)
+            player.heal(magic_dmg)
             print(bcolors.OKGREEN + "\n" + spell.name + " healed", str(magic_dmg), "HP" + bcolors.ENDC)
         elif spell.charm == "black":
             enemy.take_damage(magic_dmg)
