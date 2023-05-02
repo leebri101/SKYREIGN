@@ -33,7 +33,7 @@ player_items = [{"item": potion, "quantity": 15},
                 {"item": hi_elixir, "quantity": 1},
                 {"item": dagger, "quantity": 15},
                 {"item": kunai, "quantity": 10},
-                {"item": grenade, "quantity": 5},]
+                {"item": grenade, "quantity": 5}]
 player = person(5460, 65, 60, 34, player_spells, player_items)
 enemy = person(1200, 65, 45, 25, [], [])
 

@@ -13,7 +13,7 @@ class bcolors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
-class person:
+class Person:
     def __init__(self, hp, mp, atk, df, magic, items):
         self.maxhp = hp
         self.hp = hp

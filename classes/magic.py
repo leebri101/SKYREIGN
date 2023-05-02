@@ -1,7 +1,7 @@
 # magic class
 import random
 
-class spell:
+class Spell:
     def __init__(self, name, cost, dmg, charm):
         self.name = name
         self.cost = cost
