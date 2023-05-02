@@ -1,34 +1,41 @@
-from classes.game import person, bcolors
-from classes.magic import spell
-from classes.invetory import item
+from classes.game import Person, bcolors
+from classes.magic import Spell
+from classes.inventory import Item
 
 # Black Magic
-fire = spell("Fire:", 10, 100, "black")
-thunder = spell("Thunder:", 15, 150, "black")
-blizzard = spell("Blizzard:", 5, 50, "black")
-meteor = spell("Meteor:", 20, 200, "black")
-
+fire = Spell("Fire:", 10, 100, "black")
+thunder = Spell("Thunder:", 15, 150, "black")
+blizzard = Spell("Blizzard:", 5, 50, "black")
+meteor = Spell("Meteor:", 20, 200, "black")
 
 # White Magic
-cure = spell("Cure:", 5, 50, "white")
-cura = spell("Cura:", 10, 100, "white")
-curaga = spell("Curaga:", 15, 150, "white")
+cure = Spell("Cure:", 5, 50, "white")
+cura = Spell("Cura:", 10, 100, "white")
+curaga = Spell("Curaga:", 15, 150, "white")
 
 # Items
-potion = item("Potion", "potion", "Heals 50 HP", 50)
-hipotion = item("HI-Potion", "potion", "Heals 100 HP", 100)
-superpotion = item("Super-Potion", "potion", "Heals 150 HP", 150)
-elixir = item("Elixir", "elixir", "Restores HP/MP of one party member", 500)
-hielixir = item("HI-Elixir", "elixir", "Fully restores HP/MP of all members", 9999)
+potion = Item("Potion", "potion", "Heals 25 HP", 25)
+hipotion = Item("HI-Potion", "potion", "Heals 100 HP", 100)
+superpotion = Item("Super-Potion", "potion", "Heals 150 HP", 150)
+elixir = Item("Elixir", "elixir", "Restores HP/MP of one party member", 500)
+hi_elixir = Item("HI-Elixir", "elixir", "Fully restores HP/MP of all members", 9999)
 
-dagger = item("Dagger", "attack", "Deals Damage of 250", 250)
-dagger = item("Dagger", "attack", "Deals Damage of 250", 250)
+dagger = Item("Dagger", "attack", "Deals 150 Damage", 150)
+kunai = Item("Kunai", "attack", "Deals 250 Damage", 250)
+grenade = Item("Grenade", "attack", "Deals 500 Damage", 500)
 
-
-
-# Python code goes here
-player = person(5460, 65, 60, 34, [fire, thunder, blizzard, meteor, cure, cura, curaga])
-enemy = person(1200, 65, 45, 25, [])
+# Characters stats
+player_spells = [fire, thunder, blizzard, meteor, cure, cura, curaga]
+player_items = [{"item": potion, "quantity": 15},
+                {"item": hi_potion, "quantity": 10},
+                {"item": super_potion, "quantity": 5},
+                {"item": elixir, "quantity": 3},
+                {"item": hi_elixir, "quantity": 1},
+                {"item": dagger, "quantity": 15},
+                {"item": kunai, "quantity": 10},
+                {"item": grenade, "quantity": 5},]
+player = person(5460, 65, 60, 34, player_spells, player_items)
+enemy = person(1200, 65, 45, 25, [], [])
 
 running = True
 i = 0

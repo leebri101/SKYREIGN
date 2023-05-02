@@ -23,6 +23,7 @@ class person:
         self.atkh = atk + 10
         self.df = df
         self.magic = magic
+        self.items = items
         self.actions = ["Attack", "Spells", "Items"]
 
     def generate_damage(self):
