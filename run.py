@@ -15,8 +15,8 @@ curaga = Spell("Curaga:", 15, 150, "white")
 
 # Items
 potion = Item("Potion", "potion", "Heals 25 HP", 25)
-hipotion = Item("HI-Potion", "potion", "Heals 100 HP", 100)
-superpotion = Item("Super-Potion", "potion", "Heals 150 HP", 150)
+hi_potion = Item("HI-Potion", "potion", "Heals 100 HP", 100)
+super_potion = Item("Super-Potion", "potion", "Heals 150 HP", 150)
 elixir = Item("Elixir", "elixir", "Restores HP/MP of one party member", 500)
 hi_elixir = Item("HI-Elixir", "elixir", "Fully restores HP/MP of all members", 9999)
 
@@ -34,8 +34,8 @@ player_items = [{"item": potion, "quantity": 15},
                 {"item": dagger, "quantity": 15},
                 {"item": kunai, "quantity": 10},
                 {"item": grenade, "quantity": 5}]
-player = person(5460, 65, 60, 34, player_spells, player_items)
-enemy = person(1200, 65, 45, 25, [], [])
+player = Person(5460, 65, 60, 34, player_spells, player_items)
+enemy = Person(1200, 65, 45, 25, [], [])
 
 running = True
 i = 0
@@ -57,7 +57,7 @@ while running:
         print(bcolors.OKBLUE + bcolors.BOLD + "You attacked", dmg, "Points of DMG.")
     elif index == 1:
         player.choose_magic()
-        magic_choice = int(input()) - 1
+        magic_choice = int(input("Choose Spell: ")) - 1
 
         spell = player.magic[magic_choice]
         magic_dmg = spell.generate_damage()
@@ -76,7 +76,11 @@ while running:
         elif spell.charm == "black":
             enemy.take_damage(magic_dmg)
             print(bcolors.OKBLUE + "\n" + spell.name + " deals", str(magic_dmg), "damage" + bcolors.ENDC)
-        
+
+    elif index == 2:
+        player.choose_item()
+        item_choice = int(input("Choose Item: ")) - 1
+
     enemy_choice = 1
 
     enemy_dmg = enemy.generate_damage()
