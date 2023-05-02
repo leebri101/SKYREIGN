@@ -34,7 +34,7 @@ player_items = [{"item": potion, "quantity": 15},
                 {"item": dagger, "quantity": 15},
                 {"item": kunai, "quantity": 10},
                 {"item": grenade, "quantity": 5}]
-player = Person(5460, 65, 60, 34, player_spells, player_items)
+player = Person(5460, 150, 60, 34, player_spells, player_items)
 enemy = Person(1200, 65, 45, 25, [], [])
 
 running = True
