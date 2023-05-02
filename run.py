@@ -72,10 +72,10 @@ while running:
 
         if spell.charm == "white":
             player.heal(magic_dmg)
-            print(bcolors.OKGREEN + "\n" + spell.name + " healed", str(magic_dmg), "HP" + bcolors.ENDC)
+            print(bcolors.OKGREEN + "\n" + spell.name + " Healed", str(magic_dmg), "HP" + bcolors.ENDC)
         elif spell.charm == "black":
             enemy.take_damage(magic_dmg)
-            print(bcolors.OKBLUE + "\n" + spell.name + " deals", str(magic_dmg), "damage" + bcolors.ENDC)
+            print(bcolors.OKBLUE + "\n" + spell.name + " Deals", str(magic_dmg), "Damage" + bcolors.ENDC)
 
     elif index == 2:
         player.choose_item()
@@ -85,7 +85,7 @@ while running:
 
     enemy_dmg = enemy.generate_damage()
     player.take_damage(enemy_dmg)
-    print(bcolors.FAIL + bcolors.BOLD + "Enemy Attacked", enemy_dmg)
+    print(bcolors.FAIL + bcolors.BOLD + "Enemy Attacked", enemy_dmg, "Of Damage"+ bcolors.ENDC)
 
 
     print(bcolors.WHITE + bcolors.BOLD + "==================================")
