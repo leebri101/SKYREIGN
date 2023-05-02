@@ -14,7 +14,7 @@ class bcolors:
     UNDERLINE = '\033[4m'
 
 class person:
-    def __init__(self, hp, mp, atk, df, magic):
+    def __init__(self, hp, mp, atk, df, magic, items):
         self.maxhp = hp
         self.hp = hp
         self.maxmp = mp
@@ -23,7 +23,7 @@ class person:
         self.atkh = atk + 10
         self.df = df
         self.magic = magic
-        self.actions = ["Attack", "Spells"]
+        self.actions = ["Attack", "Spells", "Items"]
 
     def generate_damage(self):
         return random.randrange(self.atkl, self.atkh)
