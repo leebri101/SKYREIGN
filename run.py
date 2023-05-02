@@ -1,5 +1,6 @@
 from classes.game import person, bcolors
 from classes.magic import spell
+from classes.invetory import item
 
 # Black Magic
 fire = spell("Fire:", 10, 100, "black")
@@ -12,6 +13,17 @@ meteor = spell("Meteor:", 20, 200, "black")
 cure = spell("Cure:", 5, 50, "white")
 cura = spell("Cura:", 10, 100, "white")
 curaga = spell("Curaga:", 15, 150, "white")
+
+# Items
+potion = item("Potion", "potion", "Heals 50 HP", 50)
+hipotion = item("HI-Potion", "potion", "Heals 100 HP", 100)
+superpotion = item("Super-Potion", "potion", "Heals 150 HP", 150)
+elixir = item("Elixir", "elixir", "Restores HP/MP of one party member", 500)
+hielixir = item("HI-Elixir", "elixir", "Fully restores HP/MP of all members", 9999)
+
+dagger = item("Dagger", "attack", "Deals Damage of 250", 250)
+dagger = item("Dagger", "attack", "Deals Damage of 250", 250)
+
 
 
 # Python code goes here
