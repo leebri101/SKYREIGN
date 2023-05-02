@@ -78,6 +78,6 @@ class Person:
     def choose_item(self):
         i = 1
         print(bcolors.OKGREEN + bcolors.BOLD + "Select Item:" + bcolors.ENDC)
-        for item in self.item:
-            print(str(i) + ".", item.name, ":", item.description, " (x5)")
+        for item in self.items:
+            print(str(i) + ".", item["item"].name, ":", item["item"].description, " (x" + str(item["quantity"]) + ")")
             i += 1
