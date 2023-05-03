@@ -2,7 +2,7 @@
 import random
 
 class Spell:
-    def __init__(self, name, cost, dmg, charm):
+    def __init__(self, name, cost, damage, charm):
         self.name = name
         self.cost = cost
         self.damage = damage
