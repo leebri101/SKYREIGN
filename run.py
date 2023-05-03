@@ -52,15 +52,18 @@ while running:
     print(bcolors.WHITE + bcolors.BOLD + "==================================")
 
     if index == 0:
-        dmg = player.generate_damage()
-        enemy.take_damage(dmg)
-        print(bcolors.OKBLUE + bcolors.BOLD + "You attacked", dmg, "Points of DMG.")
+        damage = player.generate_damage()
+        enemy.take_damage(damage)
+        print(bcolors.OKBLUE + bcolors.BOLD + "You attacked", damage, "Points of DMG.")
     elif index == 1:
         player.choose_magic()
         magic_choice = int(input("Choose Spell: ")) - 1
 
+        if magic_choice == -1:
+            continue
+
         spell = player.magic[magic_choice]
-        magic_dmg = spell.generate_damage()
+        magic_damage = spell.generate_damage()
 
         current_mp = player.get_mp()
 
@@ -71,22 +74,30 @@ while running:
         player.reduce_mp(spell.cost)
 
         if spell.charm == "white":
-            player.heal(magic_dmg)
-            print(bcolors.OKGREEN + "\n" + spell.name + " Healed", str(magic_dmg), "HP" + bcolors.ENDC)
+            player.heal(magic_damage)
+            print(bcolors.OKGREEN + "\n" + spell.name + " Player Healed", str(magic_damage), "HP" + bcolors.ENDC)
         elif spell.charm == "black":
-            enemy.take_damage(magic_dmg)
-            print(bcolors.OKBLUE + "\n" + spell.name + " Deals", str(magic_dmg), "Damage" + bcolors.ENDC)
+            enemy.take_damage(magic_damage)
+            print(bcolors.OKBLUE + "\n" + spell.name + " Deals", str(magic_damage), "Damage" + bcolors.ENDC)
 
     elif index == 2:
         player.choose_item()
         item_choice = int(input("Choose Item: ")) - 1
 
+        if item_choice == -1:
+            continue
+
+        item = player.items[item_choice]
+
+        if isinstance(item, dict) and item.get('type') == "potion":
+            player.heal(item.get('prop'))
+            print(bcolors.OKGREEN + "\n" + item.name + " Healed", str(item.prop), "HP" + bcolors.ENDC)
+
     enemy_choice = 1
 
-    enemy_dmg = enemy.generate_damage()
-    player.take_damage(enemy_dmg)
-    print(bcolors.FAIL + bcolors.BOLD + "Enemy Attacked", enemy_dmg, "Of Damage"+ bcolors.ENDC)
-
+    enemy_damage = enemy.generate_damage()
+    player.take_damage(enemy_damage)
+    print(bcolors.FAIL + bcolors.BOLD + "Enemy Attacked", enemy_damage, "Of Damage"+ bcolors.ENDC)
 
     print(bcolors.WHITE + bcolors.BOLD + "==================================")
     print("")
@@ -102,3 +113,4 @@ while running:
     elif player.get_hp() == 0:
         print(bcolors.FAIL + "Your party has been defeated!" + bcolors.ENDC)
         running = False
+
