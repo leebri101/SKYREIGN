@@ -5,10 +5,10 @@ class Spell:
     def __init__(self, name, cost, dmg, charm):
         self.name = name
         self.cost = cost
-        self.dmg = dmg
+        self.damage = damage
         self.charm = charm
 
     def generate_damage(self):
-        low = self.dmg - 15
-        high = self.dmg + 15
+        low = self.damage - 15
+        high = self.damage + 15
         return random.randrange(low, high)

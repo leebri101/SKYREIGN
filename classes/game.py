@@ -34,14 +34,14 @@ class Person:
         mgh = self.magic[i]["dmg"] + 5
         return random.randrange(mgl, mgh)
 
-    def take_damage(self, dmg):
-        self.hp -= dmg
+    def take_damage(self, damage):
+        self.hp -= damage
         if self.hp < 0:
             self.hp = 0
         return self.hp
     
-    def heal(self, dmg):
-        self.hp += dmg
+    def heal(self, damage):
+        self.hp += damage
         if self.hp > self.maxhp:
             self.hp = self.maxhp 
 
@@ -75,7 +75,7 @@ class Person:
 
     def choose_magic(self):
         i = 1
-        print("\n" + bcolors.OKBLUE + bcolors.BOLD + "Select Magic Spell:" + bcolors.ENDC)
+        print("\n" + bcolors.OKBLUE + "Select Magic Spell:" + bcolors.ENDC)
         for spell in self.magic:
             print("    " + str(i) + ".", spell.name, "(cost:", str(spell.cost) + ")")
             i += 1
