@@ -3,8 +3,8 @@ from classes.magic import Spell
 from classes.inventory import Item
 
 # Black Magic
-fire = Spell("Fire:", 10, 100, "black")
-thunder = Spell("Thunder:", 15, 150, "black")
+fire = Spell("Fireball:", 10, 100, "black")
+thunder = Spell("Thunder-bolt:", 15, 150, "black")
 blizzard = Spell("Blizzard:", 5, 50, "black")
 meteor = Spell("Meteor:", 20, 200, "black")
 
@@ -91,13 +91,17 @@ while running:
 
         if isinstance(item, dict) and item.get('type') == "potion":
             player.heal(item.get('prop'))
-            print(bcolors.OKGREEN + "\n" + item.name + " Healed", str(item.prop), "HP" + bcolors.ENDC)
+            print(bcolors.OKGREEN + "\n" + item.get('name') + " Healed", str(item.get('prop')), "HP" + bcolors.ENDC)
+        elif isinstance(item, dict) and item.get('type') == "item":
+            # item use and effects
+            item.use(player)
+            print(bcolors.OKBLUE + "\n" + item.name + " Used." + bcolors.ENDC)
 
     enemy_choice = 1
 
     enemy_damage = enemy.generate_damage()
     player.take_damage(enemy_damage)
-    print(bcolors.FAIL + bcolors.BOLD + "Enemy Attacked", enemy_damage, "Of Damage"+ bcolors.ENDC)
+    print(bcolors.FAIL + bcolors.BOLD + "Enemy Attacked", enemy_damage, "Of Damage" + bcolors.ENDC)
 
     print(bcolors.WHITE + bcolors.BOLD + "==================================")
     print("")
@@ -113,4 +117,3 @@ while running:
     elif player.get_hp() == 0:
         print(bcolors.FAIL + "Your party has been defeated!" + bcolors.ENDC)
         running = False
-
