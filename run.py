@@ -87,15 +87,22 @@ while running:
         if item_choice == -1:
             continue
 
-        item = player.items[item_choice]
+        item = player.items[item_choice]["item"]
+        print("Selected Item:", item.name, "-", item.category)
 
-        if isinstance(item, dict) and item.get('type') == "potion":
-            player.heal(item.get('prop'))
-            print(bcolors.OKGREEN + "\n" + item.get('name') + " Healed", str(item.get('prop')), "HP" + bcolors.ENDC)
-        elif isinstance(item, dict) and item.get('type') == "item":
-            # item use and effects
-            item.use(player)
-            print(bcolors.OKBLUE + "\n" + item.name + " Used." + bcolors.ENDC)
+        if isinstance(item, Item) and item.category == "potion":
+            player.heal(item.prop)
+            print(bcolors.OKGREEN + "\n" + item.name + " Healed", str(item.prop), "HP" + bcolors.ENDC)
+        elif isinstance(item, Item) and item.category == "elixir":
+            player.heal(item.prop)
+            player.hp = player.maxhp
+            plaeyr.mp = player.maxmp
+            print(bcolors.OKGREEN + "\n" + item.name + " fully restores HP/MP", str(item.prop), bcolors.ENDC) 
+        elif isinstance(item, Item) and item.category == "attack":
+            enemy.take_damage(item.prop)
+            print(bcolors.FAIL + "\n" + item.name + " Deals", str(item.prop), "Damage" + bcolors.ENDC)
+    
+        
 
     enemy_choice = 1
 
