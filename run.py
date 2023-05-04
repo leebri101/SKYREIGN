@@ -20,9 +20,9 @@ super_potion = Item("Super-Potion", "potion", "Heals 150 HP", 150)
 elixir = Item("Elixir", "elixir", "Restores HP/MP of one party member", 500)
 hi_elixir = Item("HI-Elixir", "elixir", "Fully restores HP/MP of all members", 9999)
 
-dagger = Item("Dagger", "attack", "Deals 150 Damage", 150)
-kunai = Item("Kunai", "attack", "Deals 250 Damage", 250)
-grenade = Item("Grenade", "attack", "Deals 500 Damage", 500)
+dagger = Item("Dagger", "attack", "Deals 50 Damage", 50)
+kunai = Item("Kunai", "attack", "Deals 100 Damage", 100)
+grenade = Item("Grenade", "attack", "Deals 200 Damage", 200)
 
 # Characters stats
 player_spells = [fire, thunder, blizzard, meteor, cure, cura, curaga]
@@ -35,7 +35,7 @@ player_items = [{"item": potion, "quantity": 15},
                 {"item": kunai, "quantity": 10},
                 {"item": grenade, "quantity": 5}]
 player = Person(5460, 150, 60, 34, player_spells, player_items)
-enemy = Person(1200, 65, 45, 25, [], [])
+enemy = Person(2000, 65, 45, 25, [], [])
 
 running = True
 i = 0
@@ -82,13 +82,15 @@ while running:
 
     elif index == 2:
         player.choose_item()
+        print("")
         item_choice = int(input("Choose Item: ")) - 1
 
         if item_choice == -1:
             continue
 
         item = player.items[item_choice]["item"]
-        print("Selected Item:", item.name, "-", item.category)
+        player.items[item_choice]["quantity"] -= 1
+        print("Selected Item: " + item.name)
 
         if isinstance(item, Item) and item.category == "potion":
             player.heal(item.prop)
@@ -96,8 +98,8 @@ while running:
         elif isinstance(item, Item) and item.category == "elixir":
             player.heal(item.prop)
             player.hp = player.maxhp
-            plaeyr.mp = player.maxmp
-            print(bcolors.OKGREEN + "\n" + item.name + " fully restores HP/MP", str(item.prop), bcolors.ENDC) 
+            player.mp = player.maxmp
+            print(bcolors.MAGENTA + "\n" + item.name + " fully restores HP/MP", str(item.prop), bcolors.ENDC) 
         elif isinstance(item, Item) and item.category == "attack":
             enemy.take_damage(item.prop)
             print(bcolors.FAIL + "\n" + item.name + " Deals", str(item.prop), "Damage" + bcolors.ENDC)
