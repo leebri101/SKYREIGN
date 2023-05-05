@@ -9,7 +9,7 @@ class bcolors:
     FAIL = '\033[91m'
     WHITE = '\033[37m'
     CYAN = '\033[36m'
-    MAGENTA = '\033[45m'
+    MAGENTA = '\033[35m'
     ENDC = '\033[0m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
