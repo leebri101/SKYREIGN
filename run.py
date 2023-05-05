@@ -89,8 +89,15 @@ while running:
             continue
 
         item = player.items[item_choice]["item"]
+
+        if player.items[item_choice]["quantity"] == 0:
+            print(bcolors.FAIL + '\n' + "No " + item.name + " left..." + bcolors.ENDC)
+            continue
+        
         player.items[item_choice]["quantity"] -= 1
         print("Selected Item: " + item.name)
+
+        
 
         if isinstance(item, Item) and item.category == "potion":
             player.heal(item.prop)
@@ -99,7 +106,7 @@ while running:
             player.heal(item.prop)
             player.hp = player.maxhp
             player.mp = player.maxmp
-            print(bcolors.MAGENTA + "\n" + item.name + " fully restores HP/MP", str(item.prop), bcolors.ENDC) 
+            print(bcolors.MAGENTA + bcolors.BOLD + "\n" + item.name + " fully restores HP/MP", str(item.prop), bcolors.ENDC) 
         elif isinstance(item, Item) and item.category == "attack":
             enemy.take_damage(item.prop)
             print(bcolors.FAIL + "\n" + item.name + " Deals", str(item.prop), "Damage" + bcolors.ENDC)
@@ -113,16 +120,15 @@ while running:
     print(bcolors.FAIL + bcolors.BOLD + "Enemy Attacked", enemy_damage, "Of Damage" + bcolors.ENDC)
 
     print(bcolors.WHITE + bcolors.BOLD + "==================================")
-    print("")
-    print("Player HP:", bcolors.OKGREEN + str(player.get_hp()) + "/" + str(player.get_max_hp()) + bcolors.ENDC + "\n")
-    
-    print(bcolors.WHITE + bcolors.BOLD + "Player MP:", bcolors.OKBLUE + str(player.get_mp()) + "/" + str(player.get_max_mp()) + bcolors.ENDC + "\n")
-    
     print(bcolors.WHITE + bcolors.BOLD + "Enemy HP:", bcolors.FAIL + str(enemy.get_hp()) + "/" + str(enemy.get_max_hp()) + bcolors.ENDC + "\n")
-
+    
+    print(bcolors.WHITE + bcolors.BOLD + "Player HP:", bcolors.OKGREEN + str(player.get_hp()) + "/" + str(player.get_max_hp()) + bcolors.ENDC + "\n")
+    print(bcolors.WHITE + bcolors.BOLD + "Player MP:", bcolors.OKBLUE + str(player.get_mp()) + "/" + str(player.get_max_mp()) + bcolors.ENDC + "\n")
     if enemy.get_hp() == 0:
         print(bcolors.OKGREEN + "You Won!" + bcolors.ENDC)
         running = False
     elif player.get_hp() == 0:
         print(bcolors.FAIL + "Your party has been defeated!" + bcolors.ENDC)
         running = False
+
+        
