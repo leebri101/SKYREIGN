@@ -88,3 +88,8 @@ class Person:
         for item in self.items:
             print(str(i) + ".", item["item"].name, (item["item"].description), "(x" + str(item["quantity"]) + ")")
             i += 1
+
+    def get_stats(self):
+        print("                      ________________________          __________")
+        print(bcolors.BOLD + self.name + "     " + self.hp + "/" + self.maxhp + "|" + bcolors.OKGREEN + "████████████████████████" + bcolors.ENDC + bcolors.BOLD + "|" 
+        + self.mp + "/" + self.maxmp + "|" + bcolors.OKBLUE + "██████████" + bcolors.ENDC + bcolors.BOLD + "|")
