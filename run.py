@@ -2,6 +2,16 @@ from classes.game import Person, bcolors
 from classes.magic import Spell
 from classes.inventory import Item
 
+print("\n\n")
+print("NAME                 HP                                  MP")
+print("                     ________________________            __________")
+print("Hero:      5460/5460|████████████████████████|   150/150|██████████|")
+
+print("                     ________________________            __________")
+print("Hero:      5460/5460|████████████████████████|   150/150|██████████|")
+
+print("                     ________________________            __________")
+print("Hero:      5460/5460|████████████████████████|   150/150|██████████|")
 # Black Magic
 fire = Spell("Fireball:", 10, 100, "black")
 thunder = Spell("Thunder-bolt:", 15, 150, "black")
@@ -120,9 +130,10 @@ while running:
     print(bcolors.FAIL + bcolors.BOLD + "Enemy Attacked", enemy_damage, "Of Damage" + bcolors.ENDC)
 
     print(bcolors.WHITE + bcolors.BOLD + "==================================")
+    print("")
     print(bcolors.WHITE + bcolors.BOLD + "Enemy HP:", bcolors.FAIL + str(enemy.get_hp()) + "/" + str(enemy.get_max_hp()) + bcolors.ENDC + "\n")
     
-    print(bcolors.WHITE + bcolors.BOLD + "Player HP:", bcolors.OKGREEN + str(player.get_hp()) + "/" + str(player.get_max_hp()) + bcolors.ENDC + "\n")
+    print(bcolors.WHITE + bcolors.BOLD + "Player HP:", bcolors.OKGREEN + str(player.get_hp()) + "/" + str(player.get_max_hp()) + bcolors.ENDC)
     print(bcolors.WHITE + bcolors.BOLD + "Player MP:", bcolors.OKBLUE + str(player.get_mp()) + "/" + str(player.get_max_mp()) + bcolors.ENDC + "\n")
     if enemy.get_hp() == 0:
         print(bcolors.OKGREEN + "You Won!" + bcolors.ENDC)
@@ -130,5 +141,3 @@ while running:
     elif player.get_hp() == 0:
         print(bcolors.FAIL + "Your party has been defeated!" + bcolors.ENDC)
         running = False
-
-        
