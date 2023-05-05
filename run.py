@@ -46,10 +46,10 @@ player_items = [{"item": potion, "quantity": 15},
                 {"item": dagger, "quantity": 15},
                 {"item": kunai, "quantity": 10},
                 {"item": grenade, "quantity": 5}]
-player1 = Person("Hero:", 3250, 150, 65, 35, player_spells, player_items)
-player2 = Person("Kaldor:", 5460, 75, 100, 50, player_spells, player_items)
-player3 = Person("Elora:", 2550, 300, 55, 22, player_spells, player_items)
-enemy = Person(2000, 65, 45, 25, [], [])
+player1 = Person("Hero:", 3250, 150, 55, 35, player_spells, player_items)
+player2 = Person("Kaldor:", 5460, 75, 65, 50, player_spells, player_items)
+player3 = Person("Elora:", 2550, 300, 45, 22, player_spells, player_items)
+enemy = Person("Aegrotus The Vile", 12000, 450, 120, 40, [], [])
 
 players = [player1, player2, player3]
 
