@@ -91,5 +91,5 @@ class Person:
 
     def get_stats(self):
         print("                      ________________________          __________")
-        print(bcolors.BOLD + self.name + "     " + self.hp + "/" + self.maxhp + "|" + bcolors.OKGREEN + "████████████████████████" + bcolors.ENDC + bcolors.BOLD + "|" 
+        print(bcolors.BOLD + self.name + self.hp + "/" + self.maxhp + "|" + bcolors.OKGREEN + "████████████████████████" + bcolors.ENDC + bcolors.BOLD + "|" 
         + self.mp + "/" + self.maxmp + "|" + bcolors.OKBLUE + "██████████" + bcolors.ENDC + bcolors.BOLD + "|")
