@@ -3,9 +3,11 @@ from classes.magic import Spell
 from classes.inventory import Item
 
 print("\n\n")
-print("NAME                 HP                                  MP")
-print("                     ________________________            __________")
-print("Hero:      5460/5460|████████████████████████|   150/150|██████████|")
+print("NAME                  HP                                  MP")
+print("                      ________________________          __________")
+print(bcolors.BOLD + "Hero:      " + " 5460/5460|" + bcolors.OKGREEN + "████████████████████████" + bcolors.ENDC + bcolors.BOLD + 
+"|" + 
+" 150/150|" + bcolors.OKBLUE + "██████████" + bcolors.ENDC + bcolors.BOLD + "|")
 
 print("                     ________________________            __________")
 print("Hero:      5460/5460|████████████████████████|   150/150|██████████|")
