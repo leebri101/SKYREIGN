@@ -3,10 +3,10 @@ from classes.magic import Spell
 from classes.inventory import Item
 
 # Black Magic
-fire = Spell("Fireball:", 10, 100, "black")
-thunder = Spell("Thunder-bolt:", 15, 150, "black")
-blizzard = Spell("Blizzard:", 5, 50, "black")
-meteor = Spell("Meteor:", 20, 200, "black")
+fire = Spell("Fireball:", 10, 300, "black")
+thunder = Spell("Thunder-bolt:", 15, 450, "black")
+blizzard = Spell("Blizzard:", 5, 100, "black")
+meteor = Spell("Meteor:", 30, 750, "black")
 
 # White Magic
 cure = Spell("Cure:", 5, 50, "white")
@@ -19,6 +19,7 @@ hi_potion = Item("HI-Potion", "potion", "Heals 100 HP", 100)
 super_potion = Item("Super-Potion", "potion", "Heals 150 HP", 150)
 elixir = Item("Elixir", "elixir", "Restores HP/MP of one party member", 500)
 hi_elixir = Item("HI-Elixir", "elixir", "Fully restores HP/MP of all members", 9999)
+ether = Item("Ether", "ether", "Restores 40 MP", 40)
 
 dagger = Item("Dagger", "attack", "Deals 50 Damage", 50)
 kunai = Item("Kunai", "attack", "Deals 100 Damage", 100)
@@ -29,6 +30,7 @@ player_spells = [fire, thunder, blizzard, meteor, cure, cura, curaga]
 player_items = [{"item": potion, "quantity": 15},
                 {"item": hi_potion, "quantity": 10},
                 {"item": super_potion, "quantity": 5},
+                {"item": ether, "quantity": 10},
                 {"item": elixir, "quantity": 3},
                 {"item": hi_elixir, "quantity": 1},
                 {"item": dagger, "quantity": 15},
@@ -66,7 +68,7 @@ while running:
         if index == 0:
             damage = player.generate_damage()
             enemy.take_damage(damage)
-            print("\n" + bcolors.BOLD + player.name + "Attacked", damage, "Points of DMG.")
+            print("\n" + bcolors.BOLD + player.name + "Attacked", bcolors.FAIL, damage, "Points of DMG" + bcolors.ENDC)
         elif index == 1:
             player.choose_magic()
             magic_choice = int(input("Choose Spell: ")) - 1
@@ -112,6 +114,9 @@ while running:
             if isinstance(item, Item) and item.category == "potion":
                 player.heal(item.prop)
                 print(bcolors.OKGREEN + "\n" + item.name + " Healed", str(item.prop), "HP" + bcolors.ENDC)
+            elif isinstance(item, Item) and item.category == "ether":
+                player.heal(item.prop)
+                print(bcolors.OKBLUE + "\n" + item.name + " Restored", str(item.prop), "MP" + bcolors.ENDC)
             elif isinstance(item, Item) and item.category == "elixir":
                 player.heal(item.prop)
                 player.hp = player.maxhp
