@@ -2,18 +2,6 @@ from classes.game import Person, bcolors
 from classes.magic import Spell
 from classes.inventory import Item
 
-print("\n\n")
-print("NAME                  HP                                  MP")
-print("                      ________________________          __________")
-print(bcolors.BOLD + "Hero:      " + " 5460/5460|" + bcolors.OKGREEN + "████████████████████████" + bcolors.ENDC + bcolors.BOLD + 
-"|" + 
-" 150/150|" + bcolors.OKBLUE + "██████████" + bcolors.ENDC + bcolors.BOLD + "|")
-
-print("                     ________________________            __________")
-print("Hero:      5460/5460|████████████████████████|   150/150|██████████|")
-
-print("                     ________________________            __________")
-print("Hero:      5460/5460|████████████████████████|   150/150|██████████|")
 # Black Magic
 fire = Spell("Fireball:", 10, 100, "black")
 thunder = Spell("Thunder-bolt:", 15, 150, "black")
@@ -46,10 +34,10 @@ player_items = [{"item": potion, "quantity": 15},
                 {"item": dagger, "quantity": 15},
                 {"item": kunai, "quantity": 10},
                 {"item": grenade, "quantity": 5}]
-player1 = Person("Hero:", 3250, 150, 55, 35, player_spells, player_items)
-player2 = Person("Kaldor:", 5460, 75, 65, 50, player_spells, player_items)
-player3 = Person("Elora:", 2550, 300, 45, 22, player_spells, player_items)
-enemy = Person("Aegrotus The Vile", 12000, 450, 120, 40, [], [])
+player1 = Person("Hero: ", 3250, 150, 55, 35, player_spells, player_items)
+player2 = Person("Kaldor: ", 5460, 75, 65, 50, player_spells, player_items)
+player3 = Person("Elora: ", 2550, 300, 45, 22, player_spells, player_items)
+enemy = Person("Aegrotus The Vile: ", 12000, 450, 120, 40, [], [])
 
 players = [player1, player2, player3]
 
@@ -60,21 +48,25 @@ print(bcolors.FAIL + bcolors.BOLD + "Enemy Attack!!!" + bcolors.ENDC)
 
 while running:
     print(bcolors.WHITE + bcolors.BOLD + "==================================")
-
+    
+    print("\n")
+    print("NAME               HP                               MP")
     for player in players:
-        print("\n\n")
         player.get_stats()
         print("\n")
+
+    for player in players:
         player.choose_action()
         choice = input(bcolors.CYAN + bcolors.BOLD + "Choose Action:")
         index = int(choice) - 1
 
+        print("")
         print(bcolors.WHITE + bcolors.BOLD + "==================================")
 
         if index == 0:
             damage = player.generate_damage()
             enemy.take_damage(damage)
-            print(bcolors.OKBLUE + bcolors.BOLD + "You attacked", damage, "Points of DMG.")
+            print("\n" + bcolors.BOLD + player.name + "Attacked", damage, "Points of DMG.")
         elif index == 1:
             player.choose_magic()
             magic_choice = int(input("Choose Spell: ")) - 1
