@@ -9,17 +9,18 @@ blizzard = Spell("Blizzard:", 5, 100, "black")
 meteor = Spell("Meteor:", 30, 750, "black")
 
 # White Magic
-cure = Spell("Cure:", 5, 50, "white")
-cura = Spell("Cura:", 10, 100, "white")
-curaga = Spell("Curaga:", 15, 150, "white")
+cure = Spell("Cure:", 5, 150, "white")
+cura = Spell("Cura:", 10, 350, "white")
+curaga = Spell("Curaga:", 40, 1000, "white")
 
 # Items
-potion = Item("Potion", "potion", "Heals 25 HP", 25)
-hi_potion = Item("HI-Potion", "potion", "Heals 100 HP", 100)
-super_potion = Item("Super-Potion", "potion", "Heals 150 HP", 150)
-elixir = Item("Elixir", "elixir", "Restores HP/MP of one party member", 500)
-hi_elixir = Item("HI-Elixir", "elixir", "Fully restores HP/MP of all members", 9999)
+potion = Item("Potion", "potion", "Heals 50 HP", 50)
+hi_potion = Item("Hi-Potion", "potion", "Heals 150 HP", 150)
+super_potion = Item("Super-Potion", "potion", "Heals 150 HP", 200)
+elixir = Item("Elixir", "elixir", "Restores HP/MP of one party member", 1000)
+hi_elixir = Item("Hi-Elixir", "elixir", "Fully restores HP/MP of all members", 9999)
 ether = Item("Ether", "ether", "Restores 40 MP", 40)
+hi_ether = Item("Hi-Ether", "ether", "Restores 150 MP", 150)
 
 dagger = Item("Dagger", "attack", "Deals 50 Damage", 50)
 kunai = Item("Kunai", "attack", "Deals 100 Damage", 100)
@@ -31,13 +32,14 @@ player_items = [{"item": potion, "quantity": 15},
                 {"item": hi_potion, "quantity": 10},
                 {"item": super_potion, "quantity": 5},
                 {"item": ether, "quantity": 10},
+                {"item": hi_ether, "quantity": 5},
                 {"item": elixir, "quantity": 3},
                 {"item": hi_elixir, "quantity": 1},
                 {"item": dagger, "quantity": 15},
                 {"item": kunai, "quantity": 10},
                 {"item": grenade, "quantity": 5}]
-player1 = Person("Hero : ", 3250, 100, 100, 40, player_spells, player_items)
-player2 = Person("Gusak: ", 5450, 175, 150, 70, player_spells, player_items)
+player1 = Person("Hero : ", 3250, 175, 100, 40, player_spells, player_items)
+player2 = Person("Gusak: ", 5450, 100, 150, 70, player_spells, player_items)
 player3 = Person("Elora: ", 2550, 145, 200, 35, player_spells, player_items)
 enemy = Person("Aegrotus The Vile: ", 12000, 700, 300, 60, [], [])
 
@@ -52,7 +54,7 @@ while running:
     print(bcolors.WHITE + bcolors.BOLD + "==================================")
     
     print("\n")
-    print("NAME             HP                                  MP")
+    print("NAME              HP                                   MP")
     for player in players:
         player.get_stats()
         print("\n")
@@ -96,6 +98,7 @@ while running:
 
         elif index == 2:
             player.choose_item()
+
             print("")
             item_choice = int(input("Choose Item: ")) - 1
 
