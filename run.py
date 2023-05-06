@@ -34,10 +34,10 @@ player_items = [{"item": potion, "quantity": 15},
                 {"item": dagger, "quantity": 15},
                 {"item": kunai, "quantity": 10},
                 {"item": grenade, "quantity": 5}]
-player1 = Person("Hero: ", 3250, 150, 55, 35, player_spells, player_items)
-player2 = Person("Kaldor: ", 5460, 75, 65, 50, player_spells, player_items)
-player3 = Person("Elora: ", 2550, 300, 45, 22, player_spells, player_items)
-enemy = Person("Aegrotus The Vile: ", 12000, 450, 120, 40, [], [])
+player1 = Person("Hero : ", 3250, 100, 100, 40, player_spells, player_items)
+player2 = Person("Gusak: ", 5450, 175, 150, 70, player_spells, player_items)
+player3 = Person("Elora: ", 2550, 145, 200, 35, player_spells, player_items)
+enemy = Person("Aegrotus The Vile: ", 12000, 700, 300, 60, [], [])
 
 players = [player1, player2, player3]
 
@@ -50,7 +50,7 @@ while running:
     print(bcolors.WHITE + bcolors.BOLD + "==================================")
     
     print("\n")
-    print("NAME               HP                               MP")
+    print("NAME             HP                                  MP")
     for player in players:
         player.get_stats()
         print("\n")
@@ -129,7 +129,7 @@ while running:
 
     print(bcolors.WHITE + bcolors.BOLD + "==================================")
     print("")
-    print(bcolors.WHITE + bcolors.BOLD + "Enemy HP:", bcolors.FAIL + str(enemy.get_hp()) + "/" + str(enemy.get_max_hp()) + bcolors.ENDC + "\n")
+    print(bcolors.WHITE + bcolors.BOLD + "Enemy HP:", bcolors.FAIL + str(enemy.get_hp()) + " / " + str(enemy.get_max_hp()) + bcolors.ENDC + "\n")
     
     if enemy.get_hp() == 0:
         print(bcolors.OKGREEN + "You Won!" + bcolors.ENDC)
