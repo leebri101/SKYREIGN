@@ -54,7 +54,7 @@ while running:
     print(bcolors.WHITE + bcolors.BOLD + "==================================")
     
     print("\n")
-    print("NAME              HP                                   MP")
+    print("NAME                     HP                                      MP")
     for player in players:
         player.get_stats()
         print("\n")
@@ -91,7 +91,7 @@ while running:
 
             if spell.charm == "white":
                 player.heal(magic_damage)
-                print(bcolors.OKGREEN + "\n" + spell.name + " Player Healed", str(magic_damage), "HP" + bcolors.ENDC)
+                print(bcolors.OKGREEN + "\n" + spell.name + player.name + " Healed", str(magic_damage), "HP" + bcolors.ENDC)
             elif spell.charm == "black":
                 enemy.take_damage(magic_damage)
                 print(bcolors.OKBLUE + "\n" + spell.name + " Deals", str(magic_damage), "Damage" + bcolors.ENDC)
