@@ -53,11 +53,14 @@ print(bcolors.FAIL + bcolors.BOLD + "Enemy Attack!!!" + bcolors.ENDC)
 while running:
     print(bcolors.WHITE + bcolors.BOLD + "==================================")
     
-    print("\n")
-    print("NAME                     HP                                      MP")
+    print("\n\n")
+    print("NAME")
     for player in players:
         player.get_stats()
-        print("\n")
+    
+    print("\n")
+
+    enemy.get_enemy_stats()
 
     for player in players:
         player.choose_action()

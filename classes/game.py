@@ -90,6 +90,31 @@ class Person:
             print("  " + str(i) + ".", item["item"].name, (item["item"].description), "(x" + str(item["quantity"]) + ")")
             i += 1
 
+    def get_enemy_stats(self):
+        hp_bar = ""
+        hp_ticks = (self.hp / self.maxhp) * 100 / 2
+
+        while hp_ticks > 0:
+            hp_bar += "█"
+            hp_ticks -= 1
+        while len(hp_bar) < 50:
+            hp_bar += " "
+
+        hp_string = str(self.hp) + "/" + str(self.maxhp)
+        current_hp = ""
+
+        if len(hp_string) < 11:
+            decreased = 11 - len(hp_string)
+            while decreased > 0:
+                current_hp += " "
+                decreased -= 1
+
+            current_hp += hp_string
+        else:
+            current_hp = hp_string
+
+        print(bcolors.BOLD + self.name + "    " + "HP: " + current_hp + "|" + bcolors.FAIL + hp_bar + bcolors.ENDC + "|")
+
     def get_stats(self):
         hp_bar = ""
         hp_ticks = (self.hp / self.maxhp) * 100 / 4
@@ -135,5 +160,5 @@ class Person:
         else:
             current_mp = mp_string
         
-        print(bcolors.BOLD + self.name + "    " + "HP: " + current_hp + "|" + bcolors.OKGREEN + hp_bar + bcolors.ENDC + "|" + bcolors.BOLD +
+        print("\n" + bcolors.BOLD + self.name + "  " + "HP: " + current_hp + "|" + bcolors.OKGREEN + hp_bar + bcolors.ENDC + "|" + bcolors.BOLD +
         "  MP: " + current_mp + "|" + bcolors.OKBLUE + mp_bar + bcolors.ENDC + "|")
