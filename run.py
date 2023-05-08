@@ -43,7 +43,7 @@ player_items = [{"item": potion, "quantity": 15},
 player1 = Person("Hero : ", 3250, 175, 100, 40, player_spells, player_items)
 player2 = Person("Gusak: ", 5450, 100, 150, 70, player_spells, player_items)
 player3 = Person("Elora: ", 2550, 145, 200, 35, player_spells, player_items)
-enemy = Person("Aegrotus The Vile: ", 12000, 700, 300, 60, [], [])
+enemy = Person("Dark Lord Aegrotus: ", 12000, 700, 300, 60, [], [])
 
 players = [player1, player2, player3]
 
@@ -141,9 +141,13 @@ while running:
     enemy_choice = 1
 
     enemy_damage = enemy.generate_damage()
-    target = random.randrange(0, 2)
+    if len(player) == 1:
+        target = 0
+    else:
+        target = random.randrange(0, 2)
+
     player[target].take_damage(enemy_damage)
-    print(bcolors.FAIL + bcolors.BOLD + "Enemy Attacked", enemy_damage, "Of Damage" + bcolors.ENDC)
+    print(bcolors.FAIL + bcolors.BOLD + enemy.name + " Attacked", enemy_damage, "Of Damage" + bcolors.ENDC)
 
     print(bcolors.WHITE + bcolors.BOLD + "==================================")
     print("")
