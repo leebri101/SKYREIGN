@@ -1,6 +1,8 @@
 from classes.game import Person, bcolors
 from classes.magic import Spell
 from classes.inventory import Item
+import random
+
 
 # Black Magic
 fire = Spell("Fireball:", 10, 300, "black")
@@ -124,10 +126,14 @@ while running:
                 player.heal(item.prop)
                 print(bcolors.OKBLUE + "\n" + item.name + " Restored", str(item.prop), "MP" + bcolors.ENDC)
             elif isinstance(item, Item) and item.category == "elixir":
-                player.heal(item.prop)
-                player.hp = player.maxhp
-                player.mp = player.maxmp
-                print(bcolors.MAGENTA + bcolors.BOLD + "\n" + item.name + " fully restores HP/MP", str(item.prop), bcolors.ENDC) 
+                if item.name == "Hi-Elixir":
+                    for i in players:
+                        i.hp = player.maxhp
+                        i.mp = player.maxmp  
+                else:
+                    player.hp = player.maxhp
+                    player.mp = player.maxmp
+                    print(bcolors.MAGENTA + bcolors.BOLD + "\n" + item.name + " fully restores HP/MP", str(item.prop), bcolors.ENDC) 
             elif isinstance(item, Item) and item.category == "attack":
                 enemy.take_damage(item.prop)
                 print(bcolors.FAIL + "\n" + item.name + " Deals", str(item.prop), "Damage" + bcolors.ENDC)
@@ -135,7 +141,8 @@ while running:
     enemy_choice = 1
 
     enemy_damage = enemy.generate_damage()
-    player.take_damage(enemy_damage)
+    target = random.randrange(0, 2)
+    player[target].take_damage(enemy_damage)
     print(bcolors.FAIL + bcolors.BOLD + "Enemy Attacked", enemy_damage, "Of Damage" + bcolors.ENDC)
 
     print(bcolors.WHITE + bcolors.BOLD + "==================================")
