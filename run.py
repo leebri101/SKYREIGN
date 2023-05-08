@@ -4,6 +4,7 @@ from classes.inventory import Item
 import random
 
 
+
 # Black Magic
 fire = Spell("Fireball:", 10, 300, "black")
 thunder = Spell("Thunder-bolt:", 15, 450, "black")
@@ -28,7 +29,7 @@ dagger = Item("Dagger", "attack", "Deals 50 Damage", 50)
 kunai = Item("Kunai", "attack", "Deals 100 Damage", 100)
 grenade = Item("Grenade", "attack", "Deals 200 Damage", 200)
 
-# Characters stats
+# Characters stats and items
 player_spells = [fire, thunder, blizzard, meteor, cure, cura, curaga]
 player_items = [{"item": potion, "quantity": 15},
                 {"item": hi_potion, "quantity": 10},
@@ -40,12 +41,16 @@ player_items = [{"item": potion, "quantity": 15},
                 {"item": dagger, "quantity": 15},
                 {"item": kunai, "quantity": 10},
                 {"item": grenade, "quantity": 5}]
-player1 = Person("Hero : ", 3250, 175, 100, 40, player_spells, player_items)
-player2 = Person("Gusak: ", 5450, 100, 150, 70, player_spells, player_items)
-player3 = Person("Elora: ", 2550, 145, 200, 35, player_spells, player_items)
-enemy = Person("Dark Lord: ", 12000, 700, 300, 60, [], [])
+player1 = Person("Hero : ", 4550, 175, 100, 40, player_spells, player_items)
+player2 = Person("Gusak: ", 6450, 100, 150, 70, player_spells, player_items)
+player3 = Person("Elora: ", 3500, 145, 200, 35, player_spells, player_items)
+
+enemy1 = Person("Skeleton: ", 2750, 200, 150, 50, [], [])
+enemy2 = Person("Dark Lord: ", 12000, 600, 300, 90, [], [])
+enemy3 = Person("Imp: ", 2500, 125, 75, 30, [], [])
 
 players = [player1, player2, player3]
+enemies = [enemy1, enemy2, enemy3]
 
 running = True
 i = 0
@@ -53,7 +58,7 @@ print(bcolors.WHITE + bcolors.BOLD + "==================================")
 print(bcolors.FAIL + bcolors.BOLD + "Enemy Attack!!!" + bcolors.ENDC)
 
 while running:
-    print(bcolors.WHITE + bcolors.BOLD + "==================================")
+    print("=" * 100 + bcolors.WHITE + bcolors.BOLD + "==================================")
     
     print("\n\n")
     print("NAME")
@@ -62,7 +67,8 @@ while running:
     
     print("\n")
 
-    enemy.get_enemy_stats()
+    for enemy in enemies:
+        enemy.get_enemy_stats()
 
     for player in players:
         player.choose_action()
@@ -74,8 +80,10 @@ while running:
 
         if index == 0:
             damage = player.generate_damage()
-            enemy.take_damage(damage)
-            print("\n" + bcolors.BOLD + player.name + "Attacked", bcolors.FAIL, damage, "Points of DMG" + bcolors.ENDC)
+            enemy = player.choose_target(enemies)
+
+            enemies[enemy].take_damage(damage)
+            print("\n" + bcolors.BOLD + "Attacked" + enemies[enemy].name, bcolors.FAIL, damage, "Points of DMG" + bcolors.ENDC)
         elif index == 1:
             player.choose_magic()
             magic_choice = int(input("Choose Spell: ")) - 1
@@ -98,8 +106,11 @@ while running:
                 player.heal(magic_damage)
                 print(bcolors.OKGREEN + "\n" + spell.name + player.name + " Healed", str(magic_damage), "HP" + bcolors.ENDC)
             elif spell.charm == "black":
-                enemy.take_damage(magic_damage)
-                print(bcolors.OKBLUE + "\n" + spell.name + " Deals", str(magic_damage), "Damage" + bcolors.ENDC)
+
+                enemy = player.choose_target(enemies)
+
+                enemies[enemy].take_damage(magic_damage)
+                print(bcolors.OKBLUE + "\n" + spell.name + " Deals", str(magic_damage), "Damage to" + enemies[enemy].name + bcolors.ENDC)
 
         elif index == 2:
             player.choose_item()
@@ -126,6 +137,7 @@ while running:
                 player.heal(item.prop)
                 print(bcolors.OKBLUE + "\n" + item.name + " Restored", str(item.prop), "MP" + bcolors.ENDC)
             elif isinstance(item, Item) and item.category == "elixir":
+
                 if item.name == "Hi-Elixir":
                     for i in players:
                         i.hp = player.maxhp
@@ -137,12 +149,13 @@ while running:
             elif isinstance(item, Item) and item.category == "attack":
                 enemy.take_damage(item.prop)
                 print(bcolors.FAIL + "\n" + item.name + " Deals", str(item.prop), "Damage" + bcolors.ENDC)
-        
-    enemy_choice = 1
-    target = random.randrange(0, 3)
-    enemy_damage = enemy.generate_damage()
 
-    players[target].take_damage(enemy_damage)
+        
+            enemy_choice = 1
+            target = random.randrange(0, 3)
+            enemy_damage = enemy.generate_damage()
+
+            players[target].take_damage(enemy_damage)
     print(bcolors.FAIL + bcolors.BOLD + enemy.name + " Attacked", enemy_damage, "Of Damage" + bcolors.ENDC)
 
     print(bcolors.WHITE + bcolors.BOLD + "==================================")
