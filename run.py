@@ -8,13 +8,13 @@ import random
 # Black Magic
 fire = Spell("Fireball:", 10, 300, "black")
 thunder = Spell("Thunder-bolt:", 15, 450, "black")
-blizzard = Spell("Blizzard:", 5, 100, "black")
-meteor = Spell("Meteor:", 30, 750, "black")
+blizzard = Spell("Blizzard:", 5, 150, "black")
+meteor = Spell("Meteor:", 40, 900, "black")
 
 # White Magic
 cure = Spell("Cure:", 5, 150, "white")
 cura = Spell("Cura:", 10, 350, "white")
-curaga = Spell("Curaga:", 40, 1000, "white")
+curaga = Spell("Curaga:", 30, 750, "white")
 
 # Items
 potion = Item("Potion", "potion", "Heals 50 HP", 50)
@@ -22,8 +22,8 @@ hi_potion = Item("Hi-Potion", "potion", "Heals 150 HP", 150)
 super_potion = Item("Super-Potion", "potion", "Heals 150 HP", 200)
 elixir = Item("Elixir", "elixir", "Restores HP/MP of one party member", 1000)
 hi_elixir = Item("Hi-Elixir", "elixir", "Fully restores HP/MP of all members", 9999)
-ether = Item("Ether", "ether", "Restores 40 MP", 40)
-hi_ether = Item("Hi-Ether", "ether", "Restores 150 MP", 150)
+ether = Item("Ether", "ether", "Restores 50 MP", 50)
+
 
 dagger = Item("Dagger", "attack", "Deals 50 Damage", 50)
 kunai = Item("Kunai", "attack", "Deals 100 Damage", 100)
@@ -35,17 +35,16 @@ player_items = [{"item": potion, "quantity": 15},
                 {"item": hi_potion, "quantity": 10},
                 {"item": super_potion, "quantity": 5},
                 {"item": ether, "quantity": 10},
-                {"item": hi_ether, "quantity": 5},
                 {"item": elixir, "quantity": 3},
                 {"item": hi_elixir, "quantity": 1},
                 {"item": dagger, "quantity": 15},
                 {"item": kunai, "quantity": 10},
                 {"item": grenade, "quantity": 5}]
-player1 = Person("Hero : ", 4550, 175, 100, 40, player_spells, player_items)
-player2 = Person("Gusak: ", 6450, 100, 150, 70, player_spells, player_items)
-player3 = Person("Elora: ", 3500, 145, 200, 35, player_spells, player_items)
+player1 = Person("Hero : ", 4550, 200, 100, 40, player_spells, player_items)
+player2 = Person("Gusak: ", 6450, 250, 150, 70, player_spells, player_items)
+player3 = Person("Elora: ", 3500, 175, 200, 35, player_spells, player_items)
 
-enemy1 = Person("Skeleton:  ", 2750, 200, 150, 50, [], [])
+enemy1 = Person("Skeleton:  ", 2750, 100, 150, 50, [], [])
 enemy2 = Person("Dark Lord: ", 12000, 600, 300, 90, [], [])
 enemy3 = Person("Imp:       ", 2500, 125, 75, 30, [], [])
 
@@ -83,7 +82,7 @@ while running:
             enemy = player.choose_target(enemies)
 
             enemies[enemy].take_damage(damage)
-            print("\n" + bcolors.BOLD + "Attacked" + enemies[enemy].name, bcolors.FAIL, damage, "Points of DMG" + bcolors.ENDC)
+            print("\n" + bcolors.BOLD + "Attacked " + enemies[enemy].name, bcolors.FAIL, damage, "Points of DMG" + bcolors.ENDC)
 
         elif index == 1:
             player.choose_magic()
@@ -107,10 +106,13 @@ while running:
                 player.heal(magic_damage)
                 print(bcolors.OKGREEN + "\n" + spell.name + player.name + " Healed", str(magic_damage), "HP" + bcolors.ENDC)
             elif spell.charm == "black":
-
+                if len(enemies) == 0:
+                    print("No enemies left!")
                 enemy = player.choose_target(enemies)
-
+                if enemy >= len(enemies):
+                    print("Invalid enemy target!")
                 enemies[enemy].take_damage(magic_damage)
+
                 print(bcolors.OKBLUE + "\n" + spell.name + " Deals", str(magic_damage), "Damage to " + enemies[enemy].name + bcolors.ENDC)
 
         elif index == 2:
@@ -135,7 +137,7 @@ while running:
                 player.heal(item.prop)
                 print(bcolors.OKGREEN + "\n" + item.name + " Healed", str(item.prop), "HP" + bcolors.ENDC)
             elif isinstance(item, Item) and item.category == "ether":
-                player.heal(item.prop)
+                player.mp(item.prop)
                 print(bcolors.OKBLUE + "\n" + item.name + " Restored", str(item.prop), "MP" + bcolors.ENDC)
             elif isinstance(item, Item) and item.category == "elixir":
 
@@ -156,18 +158,29 @@ while running:
                 print(bcolors.FAIL + "\n" + item.name + " Deals", str(item.prop), "Damage" + bcolors.ENDC)
     enemy_choice = 1
     target = random.randrange(0, 3)
-    enemy_damage = enemy[0].generate_damage()
+    enemy_damage = enemies[0].generate_damage()
 
     players[target].take_damage(enemy_damage)
-    print(bcolors.FAIL + bcolors.BOLD + enemy.name + " Attacked", enemy_damage, "Of Damage" + bcolors.ENDC)
+    print(bcolors.FAIL + bcolors.BOLD + enemies[enemy].name + "Attacked", enemy_damage, "Of Damage" + bcolors.ENDC)
 
     print(bcolors.WHITE + bcolors.BOLD + "==================================")
     print("")
-    print(bcolors.WHITE + bcolors.BOLD + "Enemy HP:", bcolors.FAIL + str(enemy.get_hp()) + " / " + str(enemy.get_max_hp()) + bcolors.ENDC + "\n")
     
-    if enemy.get_hp() == 0:
+    defeated_enemies = 0
+    defeated_players = 0
+
+    for enemy in enemies:
+        if enemy.get_hp() == 0:
+            defeated_enemies += 1
+    
+    for player in players:
+        if player.get_hp() == 0:
+            defeated_players += 1
+
+    if defeated_enemies == 2:
         print(bcolors.OKGREEN + "You Won!" + bcolors.ENDC)
         running = False
-    elif player.get_hp() == 0:
+        
+    elif defeated_players == 0:
         print(bcolors.FAIL + "Your party has been defeated!" + bcolors.ENDC)
         running = False
