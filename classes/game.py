@@ -72,6 +72,7 @@ class Person:
         i = 1
         print("\n" + bcolors.BOLD + self.name + bcolors.ENDC)
         print(bcolors.OKGREEN + bcolors.BOLD + "Pick An Action:" + bcolors.ENDC)
+
         for item in self.actions:
             print("  " + str(i) + ".", item)
             i += 1
@@ -80,7 +81,7 @@ class Person:
         i = 1
         print("\n" + bcolors.OKBLUE + "Select Magic Spell:" + bcolors.ENDC)
         for spell in self.magic:
-            print("  " +str(i) + ".", spell.name, "(cost:", str(spell.cost) + ")")
+            print("  " + str(i) + ".", spell.name, "(cost:", str(spell.cost) + ")")
             i += 1
     
     def choose_item(self):
@@ -89,6 +90,7 @@ class Person:
         for item in self.items:
             print("  " + str(i) + ".", item["item"].name, (item["item"].description), "(x" + str(item["quantity"]) + ")")
             i += 1
+
     def choose_target(self, enemies):
         i = 1
 

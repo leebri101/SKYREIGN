@@ -45,9 +45,9 @@ player1 = Person("Hero : ", 4550, 175, 100, 40, player_spells, player_items)
 player2 = Person("Gusak: ", 6450, 100, 150, 70, player_spells, player_items)
 player3 = Person("Elora: ", 3500, 145, 200, 35, player_spells, player_items)
 
-enemy1 = Person("Skeleton: ", 2750, 200, 150, 50, [], [])
+enemy1 = Person("Skeleton:  ", 2750, 200, 150, 50, [], [])
 enemy2 = Person("Dark Lord: ", 12000, 600, 300, 90, [], [])
-enemy3 = Person("Imp: ", 2500, 125, 75, 30, [], [])
+enemy3 = Person("Imp:       ", 2500, 125, 75, 30, [], [])
 
 players = [player1, player2, player3]
 enemies = [enemy1, enemy2, enemy3]
@@ -84,6 +84,7 @@ while running:
 
             enemies[enemy].take_damage(damage)
             print("\n" + bcolors.BOLD + "Attacked" + enemies[enemy].name, bcolors.FAIL, damage, "Points of DMG" + bcolors.ENDC)
+
         elif index == 1:
             player.choose_magic()
             magic_choice = int(input("Choose Spell: ")) - 1
@@ -147,15 +148,17 @@ while running:
                     player.mp = player.maxmp
                     print(bcolors.MAGENTA + bcolors.BOLD + "\n" + item.name + " fully restores HP/MP", str(item.prop), bcolors.ENDC) 
             elif isinstance(item, Item) and item.category == "attack":
+
+                enemy = player.choose_target(enemies)
+                
                 enemy.take_damage(item.prop)
+                
                 print(bcolors.FAIL + "\n" + item.name + " Deals", str(item.prop), "Damage" + bcolors.ENDC)
+    enemy_choice = 1
+    target = random.randrange(0, 3)
+    enemy_damage = enemy[0].generate_damage()
 
-        
-            enemy_choice = 1
-            target = random.randrange(0, 3)
-            enemy_damage = enemy.generate_damage()
-
-            players[target].take_damage(enemy_damage)
+    players[target].take_damage(enemy_damage)
     print(bcolors.FAIL + bcolors.BOLD + enemy.name + " Attacked", enemy_damage, "Of Damage" + bcolors.ENDC)
 
     print(bcolors.WHITE + bcolors.BOLD + "==================================")
