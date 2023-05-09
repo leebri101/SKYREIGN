@@ -111,7 +111,7 @@ while running:
                 enemy = player.choose_target(enemies)
 
                 enemies[enemy].take_damage(magic_damage)
-                print(bcolors.OKBLUE + "\n" + spell.name + " Deals", str(magic_damage), "Damage to" + enemies[enemy].name + bcolors.ENDC)
+                print(bcolors.OKBLUE + "\n" + spell.name + " Deals", str(magic_damage), "Damage to " + enemies[enemy].name + bcolors.ENDC)
 
         elif index == 2:
             player.choose_item()
@@ -151,7 +151,7 @@ while running:
 
                 enemy = player.choose_target(enemies)
                 
-                enemy.take_damage(item.prop)
+                enemies[enemy].take_damage(item.prop)
                 
                 print(bcolors.FAIL + "\n" + item.name + " Deals", str(item.prop), "Damage" + bcolors.ENDC)
     enemy_choice = 1
