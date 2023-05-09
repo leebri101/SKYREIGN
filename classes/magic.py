@@ -7,7 +7,8 @@ class Spell:
         self.cost = cost
         self.damage = damage
         self.charm = charm
-
+    
+    # Generation of spell damage
     def generate_damage(self):
         low = self.damage - 15
         high = self.damage + 15

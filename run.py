@@ -3,8 +3,6 @@ from classes.magic import Spell
 from classes.inventory import Item
 import random
 
-
-
 # Black Magic
 fire = Spell("Fireball:", 10, 300, "black")
 thunder = Spell("Thunder-bolt:", 15, 450, "black")
@@ -23,8 +21,6 @@ super_potion = Item("Super-Potion", "potion", "Heals 150 HP", 200)
 elixir = Item("Elixir", "elixir", "Restores HP/MP of one party member", 1000)
 hi_elixir = Item("Hi-Elixir", "elixir", "Fully restores HP/MP of all members", 9999)
 ether = Item("Ether", "ether", "Restores 50 MP", 50)
-
-
 dagger = Item("Dagger", "attack", "Deals 50 Damage", 50)
 kunai = Item("Kunai", "attack", "Deals 100 Damage", 100)
 grenade = Item("Grenade", "attack", "Deals 200 Damage", 200)
@@ -44,6 +40,7 @@ player1 = Person("Hero : ", 4550, 200, 100, 40, player_spells, player_items)
 player2 = Person("Gusak: ", 6450, 250, 150, 70, player_spells, player_items)
 player3 = Person("Elora: ", 3500, 175, 200, 35, player_spells, player_items)
 
+# Enemy stats
 enemy1 = Person("Skeleton:  ", 2750, 100, 150, 50, [], [])
 enemy2 = Person("Dark Lord: ", 12000, 600, 300, 90, [], [])
 enemy3 = Person("Imp:       ", 2500, 125, 75, 30, [], [])
@@ -51,6 +48,7 @@ enemy3 = Person("Imp:       ", 2500, 125, 75, 30, [], [])
 players = [player1, player2, player3]
 enemies = [enemy1, enemy2, enemy3]
 
+# Start of game 
 running = True
 i = 0
 print(bcolors.WHITE + bcolors.BOLD + "==================================")
