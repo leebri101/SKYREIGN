@@ -3,39 +3,6 @@ from classes.magic import Spell
 from classes.inventory import Item
 import random
 
-def __init__(self):
-    self.home_screen()
-
-def home_screen(self):
-    """"
-    Displays title art, offers user to view the game rules and asks if
-    they wish to begin the game
-    """
-    print("""
-    $$$$$$\  $$\   $$\ $$\     $$\ $$$$$$$\  $$$$$$$$\ $$$$$$\  $$$$$$\  $$\   $$\ 
-   $$  __$$\ $$ | $$  |\$$\   $$  |$$  __$$\ $$  _____|\_$$  _|$$  __$$\ $$$\  $$ |
-   $$ /  \__|$$ |$$  /  \$$\ $$  / $$ |  $$ |$$ |        $$ |  $$ /  \__|$$$$\ $$ |
-   \$$$$$$\  $$$$$  /    \$$$$  /  $$$$$$$  |$$$$$\      $$ |  $$ |$$$$\ $$ $$\$$ |
-    \____$$\ $$  $$<      \$$  /   $$  __$$< $$  __|     $$ |  $$ |\_$$ |$$ \$$$$ |
-   $$\   $$ |$$ |\$$\      $$ |    $$ |  $$ |$$ |        $$ |  $$ |  $$ |$$ |\$$$ |
-   \$$$$$$  |$$ | \$$\     $$ |    $$ |  $$ |$$$$$$$$\ $$$$$$\ \$$$$$$  |$$ | \$$ |
-    \______/ \__|  \__|    \__|    \__|  \__|\________|\______| \______/ \__|  \__|
-        """)
-    settings_menu = True
-    while settings_menu:
-        settings = input('                 Enter the "P" to play,'
-                        ' "S" for the back story\n                      '
-                        '        or the "R" rules\n').lower().strip(" ")
-        if settings == "r":
-            settings_menu = False
-            self.how_to_play()
-        elif settings == "p":
-            settings_menu = False
-            self.clear_display()
-            self.set_players()
-        else:
-            print('                 Your input was not valid.')
-
 # Black Magic
 fire = Spell("Fireball:", 10, 300, "black")
 thunder = Spell("Thunder-bolt:", 15, 450, "black")
