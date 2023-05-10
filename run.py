@@ -8,7 +8,8 @@ fire = Spell("Fireball:", 10, 300, "black")
 thunder = Spell("Thunder-bolt:", 15, 450, "black")
 blizzard = Spell("Blizzard:", 5, 150, "black")
 meteor = Spell("Meteor:", 40, 900, "black")
-comet = Spell("Comet of Light:", 60, 1000, "black")
+comet = Spell("Comet of Light:", 80, 1000, "black")
+
 # White Magic
 cure = Spell("Cure:", 5, 150, "white")
 cura = Spell("Cura:", 10, 350, "white")
@@ -27,7 +28,7 @@ grenade = Item("Grenade", "attack", "Deals 200 Damage", 200)
 holy_grenade = Item("Holy-Grenande", "attack", "Deals 500 Damage", 500)
 
 # Characters stats and items
-player_spells = [fire, thunder, blizzard, meteor, cure, cura, curaga]
+player_spells = [fire, thunder, blizzard, meteor, comet, cure, cura, curaga]
 player_items = [{"item": potion, "quantity": 15},
                 {"item": hi_potion, "quantity": 10},
                 {"item": super_potion, "quantity": 5},
@@ -83,7 +84,11 @@ while running:
             enemy = player.choose_target(enemies)
 
             enemies[enemy].take_damage(damage)
-            print("\n" + bcolors.BOLD + "Attacked " + enemies[enemy].name, bcolors.FAIL, damage, "Points of DMG" + bcolors.ENDC)
+            print("\n" + bcolors.BOLD + "Attacked " + enemies[enemy].name + "", bcolors.FAIL, damage, "Points of DMG" + bcolors.ENDC)
+
+            if enemies[enemy].get_hp() == 0:
+                print(enemies[enemy].name + " has been defeated.")
+                del enemies[enemy]
 
         elif index == 1:
             player.choose_magic()
@@ -114,7 +119,11 @@ while running:
                     print("Invalid enemy target!")
                 enemies[enemy].take_damage(magic_damage)
 
-                print(bcolors.OKBLUE + "\n" + spell.name + " Deals", str(magic_damage), "Damage to " + enemies[enemy].name + bcolors.ENDC)
+                print(bcolors.OKBLUE + "\n" + spell.name + " Deals", str(magic_damage), "Damage to " + enemies[enemy].name + "" + bcolors.ENDC)
+
+                if enemies[enemy].get_hp() == 0:
+                    print(enemies[enemy].name + " has been defeated.")
+                    del enemies[enemy]
 
         elif index == 2:
             player.choose_item()
@@ -138,7 +147,7 @@ while running:
                 player.heal(item.prop)
                 print(bcolors.OKGREEN + "\n" + item.name + " Healed", str(item.prop), "HP" + bcolors.ENDC)
             elif isinstance(item, Item) and item.category == "ether":
-                player.mp(item.prop)
+                player.restore_mp(item.prop)
                 print(bcolors.OKBLUE + "\n" + item.name + " Restored", str(item.prop), "MP" + bcolors.ENDC)
             elif isinstance(item, Item) and item.category == "elixir":
 
@@ -157,6 +166,11 @@ while running:
                 enemies[enemy].take_damage(item.prop)
                 
                 print("\n" + bcolors.FAIL + item.name + " Deals", str(item.prop), "Damage" + bcolors.ENDC)
+
+                if enemies[enemy].get_hp() == 0:
+                    print(enemies[enemy].name.replace + "" + " has been defeated.")
+                    del enemies[enemy]
+
     enemy_choice = 1
     target = random.randrange(0, 3)
     enemy_damage = enemies[0].generate_damage()
