@@ -177,7 +177,7 @@ while running:
                 print("\n" + bcolors.FAIL + item.name + " Deals", str(item.prop), "Damage" + bcolors.ENDC)
 
                 if enemies[enemy].get_hp() == 0:
-                    print(enemies[enemy].name.replace(" ", "") + " has been defeated.")
+                    print(eenemies[enemy].name.replace(" ", "" ) " has been defeated.")
                     del enemies[enemy]
     
     # Check if battle is over
@@ -212,7 +212,7 @@ while running:
             enemy_damage = enemy.generate_damage()
 
             players[target].take_damage(enemy_damage)
-            print("\n" + bcolors.FAIL + bcolors.BOLD + enemies[enemy].name.replace(" ", "") + " Attacked" + 
+            print(bcolors.FAIL + bcolors.BOLD + enemies[enemy].name.replace(" ", "") + " Attacked" + 
                 str(enemy_damage) + "Of Damage" + bcolors.ENDC)
 
         elif enemy_choice == 1:
