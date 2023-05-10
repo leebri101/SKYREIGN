@@ -160,7 +160,7 @@ Features used:
  Throughout the second project milestone only this font was used:
   * Poppins - for a more simplistic look to users so it not too much for them.
 * Fonts that have used in the project have been sourced from Google Fonts (quoted in the credits).
-
+-->
 ## **Potential-Features**
 * Due to the project deadlines being in a very tight timeframe the project had to be scaled down to a more simpler version of the geography quiz but these are the features that I would like to potentially add or implement in the near future:
     * An interactive version with sounds and unique animations.
@@ -205,15 +205,11 @@ The second project was a very interesting but difficult challenge, which tested 
 * All fonts used have been imported from - [Google-Fonts](https://fonts.google.com/)
 
 ### **Media:**
-* Background image on the landing-page: [World-Globe](https://www.wallpaperflare.com/globe-world-map-earth-global-travel-planet-geography-wallpaper-akzmf/download)
-* Favicon for tab of page on index.html: [Favicon-Globe](https://www.flaticon.com/free-icon/earth-globe_616616)
-* General RGB color Table used in style.css: [RGB-Table](https://www.rapidtables.com/web/color/RGB_Color.html)
-* Image compressions: [TinyPNG](https://tinypng.com/) 
-* Colored grid scheme: [EightShapes](https://contrast-grid.eightshapes.com/)
-* Britannica-quizes for overall design idea and theme: [Britanica](https://www.britannica.com/quiz/name-that-world-flag)
-* Webcode Tools for general key frame animation use: [Webcode.Tools](https://webcode.tools/generators/css/keyframe-animation?utm_content=cmp-true)
-* HubSpot for different styling of animations on CSS: [HubSpot](https://blog.hubspot.com/website/css-hover-animation)
-* World Population Review as a general reference to check information for the quiz: [WorldPopulationReview](
-https://worldpopulationreview.com/country-rankings/smallest-countries)
-* RapidTables for general encyclopedia for searching for colour themes: [RapidTables](https://www.rapidtables.com/web/color/RGB_Color.html)
-* Mike Bostock's incredible method of shuffling: [Fisher-Yates](https://bost.ocks.org/mike/shuffle/)
+* https://www.lucidchart.com/pages/
+* https://www.ascii-code.com/219
+* https://www.imagineforest.com/blog/fantasy-character-names/
+* https://nerdburglars.net/namegenerator/gaming-demon-boss-name-generator/
+* https://eldenring.wiki.fextralife.com/Magic+Spells
+* https://finalfantasy.fandom.com/wiki/Ether
+* https://ascii.today/
+* https://www.fantasynamegenerators.com/video-game-names.php
