@@ -124,10 +124,11 @@ class Person:
 
         print("\n" + bcolors.FAIL + bcolors.BOLD + "TARGET:" + bcolors.ENDC)
         for enemy in enemies:
-            print("      " + str(i) + ".", enemy.name)
+            if enemy.get_hp() != 0:
+                print("      " + str(i) + ".", enemy.name)
             i += 1
         choice = int(input("Choose Target:")) - 1
-        return choice  
+        return choice 
 
     """
     Enemy stat bars 
@@ -162,14 +163,14 @@ class Person:
         print("\n" + bcolors.BOLD + self.name + "HP: " + current_hp + "|" + bcolors.FAIL + hp_bar + bcolors.ENDC + "|")
 
     """
-    
-layer stat bars, 
+    Player stat bars, 
     which are shown,
     with HP and MP bar,
     green for HP and
-    blue for MP.    """
+    blue for MP.
+    """
     def get_stats(self):
-        hp_barP = ""
+        hp_bar = ""
         hp_ticks = (self.hp / self.maxhp) * 100 / 4
         
         mp_bar = ""
