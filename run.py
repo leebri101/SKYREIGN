@@ -91,12 +91,12 @@ while running:
         if index == 0:
             damage = player.generate_damage()
             enemy = player.choose_target(enemies)
-
+            
             enemies[enemy].take_damage(damage)
-            print("\n" + bcolors.BOLD + "Attacked " + enemy.name.replace(" ", ""), bcolors.FAIL, damage, "Points of DMG" + bcolors.ENDC)
+            print(bcolors.BOLD + "Attacked " + enemies[enemy].name.replace(" ", ""), bcolors.FAIL, damage, "Points of DMG" + bcolors.ENDC)
 
             if enemies[enemy].get_hp() == 0:
-                print(enemy.name.replace(" ", "")+ " has been defeated.")
+                print(enemies[enemy].name.replace(" ", "") + " has been defeated.")
                 del enemies[enemy]
 
         elif index == 1:
@@ -128,10 +128,10 @@ while running:
                     print("Invalid enemy target!")
                 enemies[enemy].take_damage(magic_damage)
 
-                print(bcolors.OKBLUE + "\n" + spell.name + " Deals", str(magic_damage), "Damage to " + enemy.name.replace(" ", "") + bcolors.ENDC)
+                print(bcolors.OKBLUE + "\n" + spell.name + " Deals", str(magic_damage), "Damage to " + enemies[enemy].name.replace(" ", "") + bcolors.ENDC)
 
                 if enemies[enemy].get_hp() == 0:
-                    print(enemy.name.replace(" ", "") + " has been defeated.")
+                    print(enemies[enemy].name.replace(" ", "") + " has been defeated.")
                     del enemies[enemy]
 
         elif index == 2:
@@ -177,7 +177,7 @@ while running:
                 print("\n" + bcolors.FAIL + item.name + " Deals", str(item.prop), "Damage" + bcolors.ENDC)
 
                 if enemies[enemy].get_hp() == 0:
-                    print(enemy.name.replace(" ", "") + " has been defeated.")
+                    print(enemies[enemy].name.replace(" ", "") + " has been defeated.")
                     del enemies[enemy]
     
     # Check if battle is over
@@ -212,7 +212,7 @@ while running:
             enemy_damage = enemy.generate_damage()
 
             players[target].take_damage(enemy_damage)
-            print("\n" + bcolors.FAIL + bcolors.BOLD + enemy.name.replace(" ", "") + " Attacked" + 
+            print("\n" + bcolors.FAIL + bcolors.BOLD + enemies[enemy].name.replace(" ", "") + " Attacked" + 
                 str(enemy_damage) + "Of Damage" + bcolors.ENDC)
 
         elif enemy_choice == 1:
