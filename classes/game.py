@@ -15,9 +15,8 @@ class bcolors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
-
 # Coding which defines
-# all good chacters
+# all chacters
 # and enemies within the code.
 class Person:
     def __init__(self, name, hp, mp, atk, df, magic, items):
@@ -47,11 +46,18 @@ class Person:
             self.hp = 0
         return self.hp
     
-    # Healing, HP stats, MP stats
+    # Healing and restoration of MP
+    # HP stats, 
+    # MP stats
     def heal(self, damage):
         self.hp += damage
         if self.hp > self.maxhp:
-            self.hp = self.maxhp 
+            self.hp = self.maxhp
+
+    def restore_mp(self, amount):
+        self.mp += amount
+        if self.mp > self.maxmp:
+            self.mp = self.maxmp
 
     def get_hp(self):
         return self.hp
@@ -216,3 +222,13 @@ class Person:
         
         print("\n" + bcolors.BOLD + self.name + "  " + "HP: " + current_hp + "|" + bcolors.OKGREEN + hp_bar + bcolors.ENDC + "|" + bcolors.BOLD +
         "  MP: " + current_mp + "|" + bcolors.OKBLUE + mp_bar + bcolors.ENDC + "|")
+    
+    def choose_enemy_spell(self):
+        magic_choice = random.randrange(0 , len(self.magic))
+        spell = self.magic[magic_choice]
+        magic_damage = spell.generate_damage()
+
+        if self.mp < spell.cost:
+            self.choose_enemy_spell()
+        else:
+            return spell, magic_damage

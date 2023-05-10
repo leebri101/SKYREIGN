@@ -84,10 +84,10 @@ while running:
             enemy = player.choose_target(enemies)
 
             enemies[enemy].take_damage(damage)
-            print("\n" + bcolors.BOLD + "Attacked " + enemies[enemy].name + "", bcolors.FAIL, damage, "Points of DMG" + bcolors.ENDC)
+            print("\n" + bcolors.BOLD + "Attacked " + enemy.name.replace(" ", ""), bcolors.FAIL, damage, "Points of DMG" + bcolors.ENDC)
 
             if enemies[enemy].get_hp() == 0:
-                print(enemies[enemy].name + " has been defeated.")
+                print(enemy.name.replace(" ", "")+ " has been defeated.")
                 del enemies[enemy]
 
         elif index == 1:
@@ -119,10 +119,10 @@ while running:
                     print("Invalid enemy target!")
                 enemies[enemy].take_damage(magic_damage)
 
-                print(bcolors.OKBLUE + "\n" + spell.name + " Deals", str(magic_damage), "Damage to " + enemies[enemy].name + "" + bcolors.ENDC)
+                print(bcolors.OKBLUE + "\n" + spell.name + " Deals", str(magic_damage), "Damage to " + enemy.name.replace(" ", "") + bcolors.ENDC)
 
                 if enemies[enemy].get_hp() == 0:
-                    print(enemies[enemy].name + " has been defeated.")
+                    print(enemy.name.replace(" ", "") + " has been defeated.")
                     del enemies[enemy]
 
         elif index == 2:
@@ -168,19 +168,10 @@ while running:
                 print("\n" + bcolors.FAIL + item.name + " Deals", str(item.prop), "Damage" + bcolors.ENDC)
 
                 if enemies[enemy].get_hp() == 0:
-                    print(enemies[enemy].name.replace + "" + " has been defeated.")
+                    print(enemy.name.replace(" ", "") + " has been defeated.")
                     del enemies[enemy]
-
-    enemy_choice = 1
-    target = random.randrange(0, 3)
-    enemy_damage = enemies[0].generate_damage()
-
-    players[target].take_damage(enemy_damage)
-    print("\n" + bcolors.FAIL + bcolors.BOLD + enemies[enemy].name + "Attacked", enemy_damage, "Of Damage" + bcolors.ENDC)
-
-    print(bcolors.WHITE + bcolors.BOLD + "==================================")
-    print("")
     
+    # Check if battle is over
     defeated_enemies = 0
     defeated_players = 0
 
@@ -192,10 +183,32 @@ while running:
         if player.get_hp() == 0:
             defeated_players += 1
 
+    # Check if player won
     if defeated_enemies == 2:
         print(bcolors.OKGREEN + "You Won!" + bcolors.ENDC)
         running = False
-        
+
+    # Check if enemy won    
     elif defeated_players == 2:
         print(bcolors.FAIL + "Your party has been defeated!" + bcolors.ENDC)
-        running = False
+        running = False 
+
+    # Enemy Attack phase               
+    for enemy in enemies:
+        enemy_choice = random.randrange(0, 3)
+        
+        if enemy_choice == 0:
+            # Choice of attack
+            target = random.randrange(0, 3)
+            enemy_damage = enemy.generate_damage()
+
+            players[target].take_damage(enemy_damage)
+            print("\n" + bcolors.FAIL + bcolors.BOLD + enemy.name.replace(" ", "") + " Attacked" + 
+                str(enemy_damage) + "Of Damage" + bcolors.ENDC)
+
+        elif enemy_choice == 1:
+            spell, magic_damage = enemy.choose_enemy_spell()
+            print("Enemy chose", spell, "Damaged", magic_damage)
+
+    print(bcolors.WHITE + bcolors.BOLD + "==================================")
+    print("")
