@@ -16,7 +16,7 @@ class bcolors:
     UNDERLINE = '\033[4m'
 
 # Coding which defines
-# all chacters
+# all characters
 # and enemies within the code.
 class Person:
     def __init__(self, name, hp, mp, atk, df, magic, items):
@@ -31,7 +31,7 @@ class Person:
         self.items = items
         self.actions = ["Attack", "Spells", "Items"]
         self.name = name
-
+        
     def generate_damage(self):
         return random.randrange(self.atkl, self.atkh)
 
