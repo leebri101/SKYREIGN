@@ -3,12 +3,19 @@ from classes.magic import Spell
 from classes.inventory import Item
 import random
 
-# Black Magic
+# Player's Black Magic
 fire = Spell("Fireball:", 10, 300, "black")
 thunder = Spell("Thunder-bolt:", 15, 450, "black")
 blizzard = Spell("Blizzard:", 5, 150, "black")
 meteor = Spell("Meteor:", 40, 900, "black")
 comet = Spell("Comet of Light:", 80, 1000, "black")
+
+# Enemy's Black Magic
+flame = Spell("Dark-Flame", 20, 300, "black")
+shadow = Spell("Shadow-Ball", 55, 600, "black")
+void = Spell("Void", 70, 850, "black")
+darkness = Spell("Darkness", 60, 550, "black")
+thrash = Spell("Thrash", 10, 250, "black")
 
 # White Magic
 cure = Spell("Cure:", 5, 150, "white")
@@ -29,6 +36,8 @@ holy_grenade = Item("Holy-Grenande", "attack", "Deals 500 Damage", 500)
 
 # Characters stats and items
 player_spells = [fire, thunder, blizzard, meteor, comet, cure, cura, curaga]
+boss_spells = [flame, shadow, void, darkness, cure, cura]
+enemy_spells = [flame, thrash, cure]
 player_items = [{"item": potion, "quantity": 15},
                 {"item": hi_potion, "quantity": 10},
                 {"item": super_potion, "quantity": 5},
@@ -44,9 +53,9 @@ player2 = Person("Gusak: ", 6450, 150, 250, 70, player_spells, player_items)
 player3 = Person("Elora: ", 3500, 200, 175, 35, player_spells, player_items)
 
 # Enemy stats
-enemy1 = Person("Skeleton:  ", 2750, 100, 150, 50, [], [])
-enemy2 = Person("Dark Lord: ", 12000, 500, 600, 100, [], [])
-enemy3 = Person("Imp:       ", 2500, 125, 75, 30, [], [])
+enemy1 = Person("Skeleton:  ", 2750, 100, 150, 50, enemy_spells, [])
+enemy2 = Person("Dark Lord: ", 12000, 500, 600, 100, boss_spells, [])
+enemy3 = Person("Imp:       ", 2500, 125, 75, 30, enemy_spells, [])
 
 players = [player1, player2, player3]
 enemies = [enemy1, enemy2, enemy3]
