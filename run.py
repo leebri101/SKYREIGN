@@ -3,12 +3,45 @@ from classes.magic import Spell
 from classes.inventory import Item
 import random
 
+def __init__(self):
+    self.home_screen()
+
+def home_screen(self):
+    """"
+    Displays title art, offers user to view the game rules and asks if
+    they wish to begin the game
+    """
+    print("""
+    $$$$$$\  $$\   $$\ $$\     $$\ $$$$$$$\  $$$$$$$$\ $$$$$$\  $$$$$$\  $$\   $$\ 
+   $$  __$$\ $$ | $$  |\$$\   $$  |$$  __$$\ $$  _____|\_$$  _|$$  __$$\ $$$\  $$ |
+   $$ /  \__|$$ |$$  /  \$$\ $$  / $$ |  $$ |$$ |        $$ |  $$ /  \__|$$$$\ $$ |
+   \$$$$$$\  $$$$$  /    \$$$$  /  $$$$$$$  |$$$$$\      $$ |  $$ |$$$$\ $$ $$\$$ |
+    \____$$\ $$  $$<      \$$  /   $$  __$$< $$  __|     $$ |  $$ |\_$$ |$$ \$$$$ |
+   $$\   $$ |$$ |\$$\      $$ |    $$ |  $$ |$$ |        $$ |  $$ |  $$ |$$ |\$$$ |
+   \$$$$$$  |$$ | \$$\     $$ |    $$ |  $$ |$$$$$$$$\ $$$$$$\ \$$$$$$  |$$ | \$$ |
+    \______/ \__|  \__|    \__|    \__|  \__|\________|\______| \______/ \__|  \__|
+        """)
+    settings_menu = True
+    while settings_menu:
+        settings = input('                 Enter the "P" to play,'
+                        ' "S" for the back story\n                      '
+                        '        or the "R" rules\n').lower().strip(" ")
+        if settings == "r":
+            settings_menu = False
+            self.how_to_play()
+        elif settings == "p":
+            settings_menu = False
+            self.clear_display()
+            self.set_players()
+        else:
+            print('                 Your input was not valid.')
+
 # Black Magic
 fire = Spell("Fireball:", 10, 300, "black")
 thunder = Spell("Thunder-bolt:", 15, 450, "black")
 blizzard = Spell("Blizzard:", 5, 150, "black")
 meteor = Spell("Meteor:", 40, 900, "black")
-
+comet = Spell("Comet of Light:", 60, 1000, "black")
 # White Magic
 cure = Spell("Cure:", 5, 150, "white")
 cura = Spell("Cura:", 10, 350, "white")
@@ -24,6 +57,7 @@ ether = Item("Ether", "ether", "Restores 50 MP", 50)
 dagger = Item("Dagger", "attack", "Deals 50 Damage", 50)
 kunai = Item("Kunai", "attack", "Deals 100 Damage", 100)
 grenade = Item("Grenade", "attack", "Deals 200 Damage", 200)
+holy_grenade = Item("Holy-Grenande", "attack", "Deals 500 Damage", 500)
 
 # Characters stats and items
 player_spells = [fire, thunder, blizzard, meteor, cure, cura, curaga]
@@ -33,16 +67,17 @@ player_items = [{"item": potion, "quantity": 15},
                 {"item": ether, "quantity": 10},
                 {"item": elixir, "quantity": 3},
                 {"item": hi_elixir, "quantity": 1},
-                {"item": dagger, "quantity": 15},
-                {"item": kunai, "quantity": 10},
-                {"item": grenade, "quantity": 5}]
-player1 = Person("Hero : ", 4550, 200, 100, 40, player_spells, player_items)
-player2 = Person("Gusak: ", 6450, 250, 150, 70, player_spells, player_items)
-player3 = Person("Elora: ", 3500, 175, 200, 35, player_spells, player_items)
+                {"item": dagger, "quantity": 20},
+                {"item": kunai, "quantity": 15},
+                {"item": grenade, "quantity": 10},
+                {"item": holy_grenade, "quantity": 5}]
+player1 = Person("Hero : ", 4550, 100, 200, 40, player_spells, player_items)
+player2 = Person("Gusak: ", 6450, 150, 250, 70, player_spells, player_items)
+player3 = Person("Elora: ", 3500, 200, 175, 35, player_spells, player_items)
 
 # Enemy stats
 enemy1 = Person("Skeleton:  ", 2750, 100, 150, 50, [], [])
-enemy2 = Person("Dark Lord: ", 12000, 600, 300, 90, [], [])
+enemy2 = Person("Dark Lord: ", 12000, 500, 600, 100, [], [])
 enemy3 = Person("Imp:       ", 2500, 125, 75, 30, [], [])
 
 players = [player1, player2, player3]
@@ -52,10 +87,11 @@ enemies = [enemy1, enemy2, enemy3]
 running = True
 i = 0
 print(bcolors.WHITE + bcolors.BOLD + "==================================")
-print(bcolors.FAIL + bcolors.BOLD + "Enemy Attack!!!" + bcolors.ENDC)
-
+print("")
+print(bcolors.FAIL + bcolors.BOLD + "PREPARE FOR BATTLE!!!" + bcolors.ENDC)
+print("")
 while running:
-    print("=" * 100 + bcolors.WHITE + bcolors.BOLD + "==================================")
+    print(bcolors.WHITE + bcolors.BOLD + "==================================")
     
     print("\n\n")
     print("NAME")
@@ -153,13 +189,13 @@ while running:
                 
                 enemies[enemy].take_damage(item.prop)
                 
-                print(bcolors.FAIL + "\n" + item.name + " Deals", str(item.prop), "Damage" + bcolors.ENDC)
+                print("\n" + bcolors.FAIL + item.name + " Deals", str(item.prop), "Damage" + bcolors.ENDC)
     enemy_choice = 1
     target = random.randrange(0, 3)
     enemy_damage = enemies[0].generate_damage()
 
     players[target].take_damage(enemy_damage)
-    print(bcolors.FAIL + bcolors.BOLD + enemies[enemy].name + "Attacked", enemy_damage, "Of Damage" + bcolors.ENDC)
+    print("\n" + bcolors.FAIL + bcolors.BOLD + enemies[enemy].name + "Attacked", enemy_damage, "Of Damage" + bcolors.ENDC)
 
     print(bcolors.WHITE + bcolors.BOLD + "==================================")
     print("")
@@ -179,6 +215,6 @@ while running:
         print(bcolors.OKGREEN + "You Won!" + bcolors.ENDC)
         running = False
         
-    elif defeated_players == 0:
+    elif defeated_players == 2:
         print(bcolors.FAIL + "Your party has been defeated!" + bcolors.ENDC)
         running = False
