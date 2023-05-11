@@ -46,14 +46,14 @@ player_items = [{"item": potion, "quantity": 15},
                 {"item": kunai, "quantity": 15},
                 {"item": grenade, "quantity": 10},
                 {"item": holy_grenade, "quantity": 5}]
-player1 = Person("Hero : ", 4550, 100, 200, 40, player_spells, player_items)
-player2 = Person("Gusak: ", 6450, 150, 250, 70, player_spells, player_items)
-player3 = Person("Elora: ", 3500, 200, 175, 35, player_spells, player_items)
+player1 = Person("Hero  ", 4550, 100, 200, 40, player_spells, player_items)
+player2 = Person("Gusak ", 6450, 150, 250, 70, player_spells, player_items)
+player3 = Person("Elora ", 3500, 200, 175, 35, player_spells, player_items)
 
 # Enemy stats
-enemy1 = Person("Skeleton:  ", 2750, 100, 150, 50, enemy_spells, [])
-enemy2 = Person("Dark Lord: ", 12000, 500, 600, 100, boss_spells, [])
-enemy3 = Person("Imp:       ", 1750, 125, 75, 30, enemy_spells, [])
+enemy1 = Person("Skeleton  ", 2750, 100, 150, 50, enemy_spells, [])
+enemy2 = Person("Dark Lord ", 12000, 500, 600, 100, boss_spells, [])
+enemy3 = Person("Imp       ", 1750, 125, 75, 30, enemy_spells, [])
 
 players = [player1, player2, player3]
 enemies = [enemy1, enemy2, enemy3]
@@ -78,18 +78,16 @@ while running:
     for enemy in enemies:
         enemy.get_enemy_stats()
 
+    # Player attack phase
     for player in players:
+        # Player choice of attack
         player.choose_action()
-        choice = input(bcolors.CYAN + bcolors.BOLD + "Choose Action:")
-    try: 
+        choice = input(bcolors.CYAN + "Choose Action:")
         index = int(choice) - 1
-    except ValueError:
-        print("Invalid Input. Please eneter a valid number.")   
 
         print("")
         print(bcolors.WHITE + bcolors.BOLD + "==================================")
 
-        index = 0
         if index == 0:
             damage = player.generate_damage()
             enemy = player.choose_target(enemies)
@@ -206,14 +204,17 @@ while running:
     for enemy in enemies:
         enemy_choice = random.randrange(0, 3)
         
+        print(bcolors.WHITE + bcolors.BOLD + "==================================")
+        print("")
+        
         if enemy_choice == 0:
             # Choice of attack
             target = random.randrange(0, 3)
             enemy_damage = enemy.generate_damage()
 
             players[target].take_damage(enemy_damage)
-            print(bcolors.FAIL + bcolors.BOLD + enemy.name.replace(" ", "") + " Attacked " + 
-                str(enemy_damage) + " Of Damage" + bcolors.ENDC)
+            print("\n" + bcolors.FAIL + bcolors.BOLD + enemy.name.replace(" ", "") + " Attacked " + 
+                str(enemy_damage) + " Of Damage to " + players[target].name.replace(" ", "") + bcolors.ENDC)
 
         elif enemy_choice == 1:
             spell, magic_damage = enemy.choose_enemy_spell()
@@ -221,20 +222,18 @@ while running:
 
             if spell.charm == "white":
                 enemy.heal(magic_damage)
-                print(bcolors.OKGREEN + "\n" + spell.name + enemy.name.replace(" ", "") + " Healed", str(magic_damage), "HP" + bcolors.ENDC)
+                print(bcolors.OKGREEN + "\n" + enemy.name.replace(" ", "") + spell.name + " Healed", str(magic_damage), "HP" + bcolors.ENDC)
             elif spell.charm == "black":
 
                 target = random.randrange(0, 3)
                 
                 players[target].take_damage(magic_damage)
 
-                print(bcolors.FAIL + "\n" + spell.name + " Deals", str(magic_damage), "Damage to " + players[target].name.replace(" ", "") + bcolors.ENDC)
+                print(bcolors.FAIL + "\n" + enemy.name.replace(" ", "") + " Used " + spell.name + " Deals", str(magic_damage), "Damage to " + players[target].name.replace(" ", "") + bcolors.ENDC)
 
                 if players[target].get_hp() == 0:
                     print(players[target].name.replace(" ", "") + " has been defeated.")
                     del players[player]
-
-            print("Enemy chose", spell, "Damaged", magic_damage)
 
     print(bcolors.WHITE + bcolors.BOLD + "==================================")
     print("")
