@@ -90,7 +90,10 @@ class Person:
     """
     def choose_action(self):
         i = 1
-        print("\n" + bcolors.BOLD + self.name + bcolors.ENDC)
+        print(bcolors.WHITE + bcolors.BOLD + "==================================")
+        print("")
+        print(bcolors.BOLD + self.name + bcolors.ENDC)
+        print("")
         print(bcolors.OKGREEN + bcolors.BOLD + "Pick An Action:" + bcolors.ENDC)
 
         for item in self.actions:
@@ -127,12 +130,13 @@ class Person:
     """
     def choose_target(self, enemies):
         i = 1
-
-        print("\n" + bcolors.FAIL + bcolors.BOLD + "TARGET:" + bcolors.ENDC)
+        print("")
+        print(bcolors.FAIL + bcolors.BOLD + "TARGET:" + bcolors.ENDC)
         for enemy in enemies:
             if enemy.get_hp() != 0:
-                print("      " + str(i) + ".", enemy.name)
+                print("  " + str(i) + ".", enemy.name)
             i += 1
+        print("")
         choice = int(input("Choose Target:")) - 1
         return choice 
 

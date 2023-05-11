@@ -4,11 +4,11 @@ from classes.inventory import Item
 import random
 
 # Player's Black Magic
-fire = Spell("Fireball:", 10, 300, "black")
-thunder = Spell("Thunder-bolt:", 15, 450, "black")
-blizzard = Spell("Blizzard:", 5, 150, "black")
-meteor = Spell("Meteor:", 40, 900, "black")
-comet = Spell("Comet of Light:", 80, 1000, "black")
+fire = Spell("Fireball", 10, 300, "black")
+thunder = Spell("Thunder-bolt", 15, 450, "black")
+blizzard = Spell("Blizzard", 5, 150, "black")
+meteor = Spell("Meteor", 40, 900, "black")
+comet = Spell("Comet of Light", 80, 1000, "black")
 
 # Enemy's Black Magic
 flame = Spell("Dark-Flame", 20, 300, "black")
@@ -18,9 +18,9 @@ darkness = Spell("Darkness", 60, 550, "black")
 thrash = Spell("Thrash", 10, 250, "black")
 
 # White Magic
-cure = Spell("Cure:", 5, 150, "white")
-cura = Spell("Cura:", 10, 350, "white")
-curaga = Spell("Curaga:", 30, 750, "white")
+cure = Spell("Cure", 5, 150, "white")
+cura = Spell("Cura", 10, 350, "white")
+curaga = Spell("Curaga", 30, 750, "white")
 
 # Items
 potion = Item("Potion", "potion", "Heals 50 HP", 50)
@@ -52,28 +52,28 @@ player3 = Person("Elora ", 3500, 200, 175, 35, player_spells, player_items)
 
 # Enemy stats
 enemy1 = Person("Skeleton  ", 2750, 100, 150, 50, enemy_spells, [])
-enemy2 = Person("Dark Lord ", 12000, 500, 600, 100, boss_spells, [])
+enemy2 = Person("Dark-Lord ", 12000, 500, 600, 100, boss_spells, [])
 enemy3 = Person("Imp       ", 1750, 125, 75, 30, enemy_spells, [])
 
 players = [player1, player2, player3]
 enemies = [enemy1, enemy2, enemy3]
 
-# Start of game 
+# Start of game
 running = True
 i = 0
 print(bcolors.WHITE + bcolors.BOLD + "==================================")
 print("")
-print(bcolors.FAIL + bcolors.BOLD + "PREPARE FOR BATTLE!!!" + bcolors.ENDC)
+print(bcolors.FAIL + bcolors.BOLD + " >>----PREPARE FOR BATTLE!!!----<< " + bcolors.ENDC)
 print("")
 while running:
     print(bcolors.WHITE + bcolors.BOLD + "==================================")
+    print("")
     
-    print("\n\n")
     print("NAME")
     for player in players:
         player.get_stats()
     
-    print("\n")
+    print("")
 
     for enemy in enemies:
         enemy.get_enemy_stats()
@@ -82,6 +82,7 @@ while running:
     for player in players:
         # Player choice of attack
         player.choose_action()
+        print("")
         choice = input(bcolors.CYAN + "Choose Action:")
         index = int(choice) - 1
 
@@ -93,15 +94,16 @@ while running:
             enemy = player.choose_target(enemies)
             
             enemies[enemy].take_damage(damage)
+            print("")
             print("Attacked " + enemies[enemy].name.replace(" ", ""), bcolors.FAIL, damage, "Points of DMG" + bcolors.ENDC)
-
+            print("")
             if enemies[enemy].get_hp() == 0:
-                print(enemies[enemy].name.replace(" ", "") + " has been defeated.")
+                print(enemies[enemy].name.replace(" ", "") + " has been slain.")
                 del enemies[enemy]
 
         elif index == 1:
             player.choose_magic()
-            magic_choice = int(input("Choose Spell: ")) - 1
+            magic_choice = int(input("\n" + "Choose Spell: ")) - 1
 
             if magic_choice == -1:
                 continue
@@ -172,7 +174,7 @@ while running:
                 
                 enemies[enemy].take_damage(item.prop)
                 
-                print("\n" + bcolors.FAIL + item.name + " Deals", str(item.prop), "Damage" + bcolors.ENDC)
+                print(player.name + "Used " + item.name + " Deals", bcolors.FAIL + str(item.prop), "Damage" + bcolors.ENDC)
 
                 if enemies[enemy].get_hp() == 0:
                     print(enemies[enemy].name.replace(" ", "") + " has been defeated.")
@@ -204,9 +206,6 @@ while running:
     for enemy in enemies:
         enemy_choice = random.randrange(0, 3)
         
-        print(bcolors.WHITE + bcolors.BOLD + "==================================")
-        print("")
-        
         if enemy_choice == 0:
             # Choice of attack
             target = random.randrange(0, 3)
@@ -222,18 +221,15 @@ while running:
 
             if spell.charm == "white":
                 enemy.heal(magic_damage)
-                print(bcolors.OKGREEN + "\n" + enemy.name.replace(" ", "") + spell.name + " Healed", str(magic_damage), "HP" + bcolors.ENDC)
+                print(bcolors.FAIL + enemy.name.replace(" ", "") +  " Used " + bcolors.OKGREEN + spell.name + " Healed", str(magic_damage), "HP" + bcolors.ENDC)
             elif spell.charm == "black":
 
                 target = random.randrange(0, 3)
                 
                 players[target].take_damage(magic_damage)
 
-                print(bcolors.FAIL + "\n" + enemy.name.replace(" ", "") + " Used " + spell.name + " Deals", str(magic_damage), "Damage to " + players[target].name.replace(" ", "") + bcolors.ENDC)
+                print(bcolors.FAIL + "\n" + enemy.name.replace(" ", "") + " Used " + bcolors.OKBLUE + spell.name + bcolors.ENDC + " Deals", bcolors.FAIL + str(magic_damage), "Damage to " + players[target].name.replace(" ", "") + bcolors.ENDC)
 
                 if players[target].get_hp() == 0:
                     print(players[target].name.replace(" ", "") + " has been defeated.")
                     del players[player]
-
-    print(bcolors.WHITE + bcolors.BOLD + "==================================")
-    print("")
