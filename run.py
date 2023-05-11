@@ -18,9 +18,9 @@ darkness = Spell("Darkness", 60, 550, "black")
 thrash = Spell("Thrash", 10, 250, "black")
 
 # White Magic
-cure = Spell("Cure", 5, 150, "white")
-cura = Spell("Cura", 10, 350, "white")
-curaga = Spell("Curaga", 30, 750, "white")
+cure = Spell("Cure", 10, 200, "white")
+cura = Spell("Cura", 15, 600, "white")
+curaga = Spell("Curaga", 30, 1000, "white")
 
 # Items
 potion = Item("Potion", "potion", "Heals 50 HP", 50)
@@ -41,8 +41,8 @@ player_items = [{"item": potion, "quantity": 15},
                 {"item": hi_potion, "quantity": 10},
                 {"item": super_potion, "quantity": 5},
                 {"item": ether, "quantity": 10},
-                {"item": elixir, "quantity": 3},
-                {"item": hi_elixir, "quantity": 1},
+                {"item": elixir, "quantity": 5},
+                {"item": hi_elixir, "quantity": 2},
                 {"item": kunai, "quantity": 15},
                 {"item": grenade, "quantity": 10},
                 {"item": holy_grenade, "quantity": 5}]
@@ -94,13 +94,16 @@ while running:
             enemy = player.choose_target(enemies)
             
             enemies[enemy].take_damage(damage)
+
+            # Display of regular attack damage
             print("")
             print("Attacked " + enemies[enemy].name.replace(" ", ""), bcolors.FAIL, damage, "Points of DMG" + bcolors.ENDC)
             print("")
             if enemies[enemy].get_hp() == 0:
-                print(enemies[enemy].name.replace(" ", "") + " has been slain.")
+                print(enemies[enemy].name.replace(" ", "") + " has been slain")
                 del enemies[enemy]
 
+        # choice of spell options
         elif index == 1:
             player.choose_magic()
             magic_choice = int(input("\n" + "Choose Spell: ")) - 1
@@ -119,6 +122,7 @@ while running:
 
             player.reduce_mp(spell.cost)
 
+            # White and Black magic
             if spell.charm == "white":
                 player.heal(magic_damage)
                 print(bcolors.OKGREEN + "\n" + spell.name + player.name + " Healed", str(magic_damage), "HP" + bcolors.ENDC)
@@ -131,9 +135,10 @@ while running:
                 print(bcolors.OKBLUE + "\n" + spell.name + " Deals", str(magic_damage), "Damage to " + enemies[enemy].name.replace(" ", "") + bcolors.ENDC)
 
                 if enemies[enemy].get_hp() == 0:
-                    print(enemies[enemy].name.replace(" ", "") + " has been defeated.")
+                    print(enemies[enemy].name.replace(" ", "") + " has been slain")
                     del enemies[enemy]
 
+        # Item choices for player to use
         elif index == 2:
             player.choose_item()
 
@@ -145,13 +150,16 @@ while running:
 
             item = player.items[item_choice]["item"]
 
+            # Display of item choices with quantity and message of no items left
             if player.items[item_choice]["quantity"] == 0:
                 print(bcolors.FAIL + '\n' + "No " + item.name + " left..." + bcolors.ENDC)
                 continue
             
+            # Prompt of item selection
             player.items[item_choice]["quantity"] -= 1
             print("Selected Item: " + item.name)
 
+            # Recovery Items
             if isinstance(item, Item) and item.category == "potion":
                 player.heal(item.prop)
                 print(bcolors.OKGREEN + "\n" + item.name + " Healed", str(item.prop), "HP" + bcolors.ENDC)
@@ -163,21 +171,24 @@ while running:
                 if item.name == "Hi-Elixir":
                     for i in players:
                         i.hp = player.maxhp
-                        i.mp = player.maxmp  
+                        i.mp = player.maxmp
                 else:
                     player.hp = player.maxhp
                     player.mp = player.maxmp
                     print(bcolors.MAGENTA + bcolors.BOLD + "\n" + item.name + " fully restores HP/MP", str(item.prop), bcolors.ENDC) 
+            
+            # Attack Items
             elif isinstance(item, Item) and item.category == "attack":
 
                 enemy = player.choose_target(enemies)
                 
                 enemies[enemy].take_damage(item.prop)
                 
+                # Damage message to enemy
                 print(player.name + "Used " + item.name + " Deals", bcolors.FAIL + str(item.prop), "Damage" + bcolors.ENDC)
 
                 if enemies[enemy].get_hp() == 0:
-                    print(enemies[enemy].name.replace(" ", "") + " has been defeated.")
+                    print(enemies[enemy].name.replace(" ", "") + " has been slain.")
                     del enemies[enemy]
     
     # Check if battle is over
@@ -204,10 +215,10 @@ while running:
 
     # Enemy Attack phase               
     for enemy in enemies:
-        enemy_choice = random.randrange(0, 3)
-        
+        enemy_choice = random.randrange(0, 2)
+
+        # Choice of attack
         if enemy_choice == 0:
-            # Choice of attack
             target = random.randrange(0, 3)
             enemy_damage = enemy.generate_damage()
 
@@ -215,21 +226,23 @@ while running:
             print("\n" + bcolors.FAIL + bcolors.BOLD + enemy.name.replace(" ", "") + " Attacked " + 
                 str(enemy_damage) + " Of Damage to " + players[target].name.replace(" ", "") + bcolors.ENDC)
 
+        # Choice of magic spells for enemy
         elif enemy_choice == 1:
             spell, magic_damage = enemy.choose_enemy_spell()
             enemy.reduce_mp(spell.cost)
 
+            # Recovery and attack spells for enemy
             if spell.charm == "white":
                 enemy.heal(magic_damage)
-                print(bcolors.FAIL + enemy.name.replace(" ", "") +  " Used " + bcolors.OKGREEN + spell.name + " Healed", str(magic_damage), "HP" + bcolors.ENDC)
+                print("\n" + bcolors.FAIL + enemy.name.replace(" ", "") + " Used " + bcolors.OKGREEN + spell.name + " Healed", str(magic_damage), "HP" + bcolors.ENDC)
             elif spell.charm == "black":
 
                 target = random.randrange(0, 3)
                 
                 players[target].take_damage(magic_damage)
 
-                print(bcolors.FAIL + "\n" + enemy.name.replace(" ", "") + " Used " + bcolors.OKBLUE + spell.name + bcolors.ENDC + " Deals", bcolors.FAIL + str(magic_damage), "Damage to " + players[target].name.replace(" ", "") + bcolors.ENDC)
+                print(bcolors.FAIL + enemy.name.replace(" ", "") + " Used " + bcolors.OKBLUE + spell.name + bcolors.ENDC + " Deals", bcolors.FAIL + str(magic_damage), "Damage to " + players[target].name.replace(" ", "") + bcolors.ENDC)
 
                 if players[target].get_hp() == 0:
-                    print(players[target].name.replace(" ", "") + " has been defeated.")
+                    print(players[target].name.replace(" ", "") + " has been slain.")
                     del players[player]
