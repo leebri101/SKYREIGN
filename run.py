@@ -37,15 +37,15 @@ holy_grenade = Item("Holy-Grenade", "attack", "Deals 500 Damage", 500)
 player_spells = [fire, thunder, blizzard, meteor, comet, cure, cura, curaga]
 boss_spells = [flame, shadow, void, darkness, cure, cura]
 enemy_spells = [flame, thrash, cure]
-player_items = [{"item": potion, "quantity": 15},
-                {"item": hi_potion, "quantity": 10},
-                {"item": super_potion, "quantity": 5},
-                {"item": ether, "quantity": 10},
-                {"item": elixir, "quantity": 5},
-                {"item": hi_elixir, "quantity": 2},
-                {"item": kunai, "quantity": 15},
-                {"item": grenade, "quantity": 10},
-                {"item": holy_grenade, "quantity": 5}]
+player_items = [{"item": potion, "amount": 15},
+                {"item": hi_potion, "amount": 10},
+                {"item": super_potion, "amount": 5},
+                {"item": ether, "amount": 10},
+                {"item": elixir, "amount": 5},
+                {"item": hi_elixir, "amount": 2},
+                {"item": kunai, "amount": 15},
+                {"item": grenade, "amount": 10},
+                {"item": holy_grenade, "amount": 5}]
 player1 = Person("Hero  ", 4550, 100, 200, 40, player_spells, player_items)
 player2 = Person("Gusak ", 6450, 150, 250, 70, player_spells, player_items)
 player3 = Person("Elora ", 3500, 200, 175, 35, player_spells, player_items)
@@ -151,13 +151,13 @@ while running:
 
             item = player.items[item_choice]["item"]
 
-            # Display of item choices with quantity and message of no items left
-            if player.items[item_choice]["quantity"] == 0:
+            # Display of item choices with amount and message of no items left
+            if player.items[item_choice]["amount"] == 0:
                 print(bcolors.FAIL + '\n' + "No " + item.name + " left..." + bcolors.ENDC)
                 continue
             
             # Prompt of item selection
-            player.items[item_choice]["quantity"] -= 1
+            player.items[item_choice]["amount"] -= 1
             print("Selected Item: " + item.name)
 
             # Recovery Items

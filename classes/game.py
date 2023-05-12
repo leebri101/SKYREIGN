@@ -1,6 +1,7 @@
 import random
 import pprint
 
+
 # Colors and styling
 class bcolors:
     HEADER = '\033[95m'
@@ -14,6 +15,7 @@ class bcolors:
     ENDC = '\033[0m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
+
 
 # Coding which defines
 # all characters
@@ -31,7 +33,9 @@ class Person:
         self.items = items
         self.actions = ["Attack", "Spells", "Items"]
         self.name = name
-        
+    """
+    Random generation of atk damage
+    """
     def generate_damage(self):
         return random.randrange(self.atkl, self.atkh)
 
@@ -45,7 +49,7 @@ class Person:
         if self.hp < 0:
             self.hp = 0
         return self.hp
-    
+
     # Healing and restoration of MP
     # HP stats,
     # MP stats
@@ -70,7 +74,6 @@ class Person:
 
     def get_max_mp(self):
         return self.maxmp
-    
     """
     Reduction of MP and spells which
     displays the cost of each spell for the player
@@ -83,48 +86,44 @@ class Person:
 
     def get_spell_mp_cost(self, i):
         return self.magic[i]["cost"]
-    
     """
-    choice of actions for,
+    choice of actions for
     players
     """
     def choose_action(self):
         i = 1
-        print(bcolors.WHITE + bcolors.BOLD + "==================================")
+        print(f"{bcolors.WHITE}{bcolors.BOLD}================================")
         print("")
         print(bcolors.BOLD + self.name + bcolors.ENDC)
         print("")
-        print(bcolors.OKGREEN + bcolors.BOLD + "Pick An Action:" + bcolors.ENDC)
+        print(f"{bcolors.OKGREEN}{bcolors.BOLD}Pick An Action:{bcolors.ENDC}")
 
         for item in self.actions:
             print("  " + str(i) + ".", item)
             i += 1
-
     """
-    Choice of meagic spells 
+    Choice of meagic spells
     for players
     """
     def choose_magic(self):
         i = 1
         print("\n" + bcolors.OKBLUE + "Select Magic Spell:" + bcolors.ENDC)
         for spell in self.magic:
-            print("  " + str(i) + ".", spell.name, "(cost:", str(spell.cost) + ")")
+            print(f"  {i}. {spell.name} (cost: {spell.cost})")
             i += 1
-
     """
-    Item choices for players 
+    Item choices for players
     to use against enemies
     """
     def choose_item(self):
         i = 1
-        print("\n" + bcolors.OKGREEN + bcolors.BOLD + "Select Item:" + bcolors.ENDC)
+        print(f"\n{bcolors.OKGREEN}{bcolors.BOLD}Select Item:{bcolors.ENDC}")
         for item in self.items:
-            print("  " + str(i) + ".", item["item"].name, (item["item"].description), "(x" + str(item["quantity"]) + ")")
+            print(f" {i}.{item['item'].name}{item['item'].info}(x{item['amount']})")
             i += 1
-
     """
-    Players having the choice 
-    to target any charcters 
+    Players having the choice
+    to target any charcters
     with any actions prompted
     before hand.
     """
@@ -138,13 +137,12 @@ class Person:
             i += 1
         print("")
         choice = int(input("Choose Target:")) - 1
-        return choice 
-
+        return choice
     """
-    Enemy stat bars 
-    which show a 
+    Enemy stat bars
+    which show a
     simple display
-    of a bars which are 
+    of a bars which are
     indicated by a red color
     """
     def get_enemy_stats(self):
@@ -170,10 +168,9 @@ class Person:
         else:
             current_hp = hp_string
 
-        print("\n" + bcolors.BOLD + self.name + "HP: " + current_hp + "|" + bcolors.FAIL + hp_bar + bcolors.ENDC + "|")
-
+        print(f"\n{bcolors.BOLD}{self.name} HP: {current_hp}|{bcolors.FAIL}{hp_bar}{bcolors.ENDC}|")
     """
-    Player stat bars, 
+    Player stat bars,
     which are shown,
     with HP and MP bar,
     green for HP and
@@ -182,7 +179,6 @@ class Person:
     def get_stats(self):
         hp_bar = ""
         hp_ticks = (self.hp / self.maxhp) * 100 / 4
-        
         mp_bar = ""
         mp_ticks = (self.mp / self.maxmp) * 100 / 10
 
@@ -197,7 +193,6 @@ class Person:
             mp_ticks -= 1
         while len(mp_bar) < 10:
             mp_bar += " "
-       
         hp_string = str(self.hp) + "/" + str(self.maxhp)
         current_hp = ""
 
@@ -210,7 +205,6 @@ class Person:
             current_hp += hp_string
         else:
             current_hp = hp_string
-       
         mp_string = str(self.mp) + "/" + str(self.maxmp)
         current_mp = ""
 
@@ -223,16 +217,15 @@ class Person:
             current_mp += mp_string
         else:
             current_mp = mp_string
-        
-        print("\n" + bcolors.BOLD + self.name + "  " + "HP: " + current_hp + "|" + bcolors.OKGREEN + hp_bar + bcolors.ENDC + "|" + bcolors.BOLD +
-        "  MP: " + current_mp + "|" + bcolors.OKBLUE + mp_bar + bcolors.ENDC + "|")
-    
+
+        print(f"\n{bcolors.BOLD}{self.name}  HP: {current_hp}|{bcolors.OKGREEN}{hp_bar}{bcolors.ENDC}|" f"{bcolors.BOLD}  MP: {current_mp}|{bcolors.OKBLUE}{mp_bar}{bcolors.ENDC}|")
+
     def choose_enemy_spell(self):
         magic_choice = random.randrange(0, len(self.magic))
         spell = self.magic[magic_choice]
         magic_damage = spell.generate_damage()
 
-        pct = self.hp / self.maxhp * 100  
+        pct = self.hp / self.maxhp * 100
 
         if self.mp < spell.cost or spell.charm == "white" and pct > 50:
             self.choose_enemy_spell()
