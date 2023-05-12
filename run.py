@@ -117,7 +117,7 @@ while running:
             current_mp = player.get_mp()
 
             if spell.cost > current_mp:
-                print(f"{bcolors.FAIL}{bcolors.BOLD}\nNot enough MP\n{bcolors.ENDC}")
+                print(f"{bcolors.FAIL}{bcolors.BOLD}Not enough MP{bcolors.ENDC}")
                 continue
 
             player.reduce_mp(spell.cost)
@@ -216,8 +216,7 @@ while running:
             enemy_damage = enemy.generate_damage()
 
             players[target].take_damage(enemy_damage)
-            print("\n" + bcolors.FAIL + bcolors.BOLD + enemy.name.replace(" ", "") + " Attacked " +
-                str(enemy_damage) + " Of Damage to " + players[target].name.replace(" ", "") + bcolors.ENDC)
+            print(f"\n{bcolors.FAIL}{enemy.name.replace(' ', '')} Attacked {str(enemy_damage)} Of Damage to {players[target].name.replace(' ', '')}{bcolors.ENDC}")
 
         # Choice of magic spells for enemy
         elif enemy_choice == 1:
@@ -235,6 +234,10 @@ while running:
 
                 print(bcolors.FAIL + enemy.name.replace(" ", "") + " Used " + bcolors.OKBLUE + spell.name + bcolors.ENDC + " Deals", bcolors.FAIL + str(magic_damage), "Damage to " + players[target].name.replace(" ", "") + bcolors.ENDC)
 
+print(f"{bcolors.FAIL}{enemy.name.replace(' ', '')} Used {bcolors.OKBLUE}{spell.name}{bcolors.ENDC} Deals "
+      f"{bcolors.FAIL}{str(magic_damage)} Damage to {players[target].name.replace(' ', '')}{bcolors.ENDC}")
+
+
                 if players[target].get_hp() == 0:
-                    print(players[target].name.replace(" ", "") + " has been slain.")
+                    print(f"{players[target].name.replace(' ', '')} has been slain.")
                     del players[player]
