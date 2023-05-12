@@ -27,7 +27,7 @@ potion = Item("Potion", "potion", "Heals 50 HP", 50)
 hi_potion = Item("Hi-Potion", "potion", "Heals 150 HP", 150)
 super_potion = Item("Super-Potion", "potion", "Heals 150 HP", 200)
 elixir = Item("Elixir", "elixir", "Restores HP/MP of one party member", 1000)
-hi_elixir = Item("Hi-Elixir", "elixir", "Fully restores HP/MP of all members", 9999)
+hi_elixir = Item("Hi-Elixir", "elixir", "Restores HP/MP of all members", 9999)
 ether = Item("Ether", "ether", "Restores 50 MP", 50)
 kunai = Item("Kunai", "attack", "Deals 100 Damage", 100)
 grenade = Item("Grenade", "attack", "Deals 200 Damage", 200)
@@ -61,6 +61,7 @@ enemies = [enemy1, enemy2, enemy3]
 # Start of game
 running = True
 i = 0
+
 print(bcolors.WHITE + bcolors.BOLD + "==================================")
 print("")
 print(bcolors.FAIL + bcolors.BOLD + " >>----PREPARE FOR BATTLE!!!----<< " + bcolors.ENDC)
@@ -198,7 +199,7 @@ while running:
     for enemy in enemies:
         if enemy.get_hp() == 0:
             defeated_enemies += 1
-    
+   
     for player in players:
         if player.get_hp() == 0:
             defeated_players += 1

@@ -1,7 +1,7 @@
 import random
 import pprint
 
-# Colors and styling 
+# Colors and styling
 class bcolors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
@@ -47,7 +47,7 @@ class Person:
         return self.hp
     
     # Healing and restoration of MP
-    # HP stats, 
+    # HP stats,
     # MP stats
     def heal(self, damage):
         self.hp += damage
@@ -126,7 +126,7 @@ class Person:
     Players having the choice 
     to target any charcters 
     with any actions prompted
-    before hand. 
+    before hand.
     """
     def choose_target(self, enemies):
         i = 1
@@ -197,7 +197,7 @@ class Person:
             mp_ticks -= 1
         while len(mp_bar) < 10:
             mp_bar += " "
-        
+       
         hp_string = str(self.hp) + "/" + str(self.maxhp)
         current_hp = ""
 
@@ -210,7 +210,7 @@ class Person:
             current_hp += hp_string
         else:
             current_hp = hp_string
-        
+       
         mp_string = str(self.mp) + "/" + str(self.maxmp)
         current_mp = ""
 
