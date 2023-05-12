@@ -62,18 +62,17 @@ enemies = [enemy1, enemy2, enemy3]
 running = True
 i = 0
 
-print(bcolors.WHITE + bcolors.BOLD + "==================================")
+print(f"{bcolors.WHITE}{bcolors.BOLD}================================")
 print("")
-print(bcolors.FAIL + bcolors.BOLD + " >>----PREPARE FOR BATTLE!!!----<< " + bcolors.ENDC)
+print(f"{bcolors.FAIL}{bcolors.BOLD}>>-PREPARE FOR BATTLE!!-<<{bcolors.ENDC}")
+
 print("")
 while running:
-    print(bcolors.WHITE + bcolors.BOLD + "==================================")
+    print(f"{bcolors.WHITE}{bcolors.BOLD}==================================")
     print("")
-    
     print("NAME")
     for player in players:
         player.get_stats()
-    
     print("")
 
     for enemy in enemies:
@@ -88,17 +87,17 @@ while running:
         index = int(choice) - 1
 
         print("")
-        print(bcolors.WHITE + bcolors.BOLD + "==================================")
+        print(f"{bcolors.WHITE}{bcolors.BOLD}================================")
 
         if index == 0:
             damage = player.generate_damage()
             enemy = player.choose_target(enemies)
-            
             enemies[enemy].take_damage(damage)
 
             # Display of regular attack damage
             print("")
-            print("Attacked " + enemies[enemy].name.replace(" ", ""), bcolors.FAIL, damage, "Points of DMG" + bcolors.ENDC)
+            print(f"Attacked {enemies[enemy].name.replace('' ,'')}{bcolors.FAIL}{damage} of DMG{bcolors.ENDC}")
+
             print("")
             if enemies[enemy].get_hp() == 0:
                 print(enemies[enemy].name.replace(" ", "") + " has been slain")
@@ -118,7 +117,7 @@ while running:
             current_mp = player.get_mp()
 
             if spell.cost > current_mp:
-                print(bcolors.FAIL + bcolors.BOLD + "\nNot enough MP\n" + bcolors.ENDC)
+                print(f"{bcolors.FAIL}{bcolors.BOLD}\nNot enough MP\n{bcolors.ENDC}")
                 continue
 
             player.reduce_mp(spell.cost)
@@ -126,14 +125,13 @@ while running:
             # White and Black magic
             if spell.charm == "white":
                 player.heal(magic_damage)
-                print(bcolors.OKGREEN + "\n" + spell.name + player.name + " Healed", str(magic_damage), "HP" + bcolors.ENDC)
+                print(f"{bcolors.OKGREEN}\n{spell.name} {player.name} Healed {magic_damage} HP{bcolors.ENDC}")
+
             elif spell.charm == "black":
-                
                 enemy = player.choose_target(enemies)
-                
                 enemies[enemy].take_damage(magic_damage)
 
-                print(bcolors.OKBLUE + "\n" + spell.name + " Deals", str(magic_damage), "Damage to " + enemies[enemy].name.replace(" ", "") + bcolors.ENDC)
+                print(f"{bcolors.OKBLUE}\n{spell.name} Deals {magic_damage} Damage to {enemies[enemy].name.replace(' ', '')}{bcolors.ENDC}")
 
                 if enemies[enemy].get_hp() == 0:
                     print(enemies[enemy].name.replace(" ", "") + " has been slain")
@@ -155,7 +153,6 @@ while running:
             if player.items[item_choice]["amount"] == 0:
                 print(bcolors.FAIL + '\n' + "No " + item.name + " left..." + bcolors.ENDC)
                 continue
-            
             # Prompt of item selection
             player.items[item_choice]["amount"] -= 1
             print("Selected Item: " + item.name)
@@ -176,22 +173,18 @@ while running:
                 else:
                     player.hp = player.maxhp
                     player.mp = player.maxmp
-                    print(bcolors.MAGENTA + bcolors.BOLD + "\n" + item.name + " fully restores HP/MP", str(item.prop), bcolors.ENDC) 
-            
+                    print(bcolors.MAGENTA + bcolors.BOLD + "\n" + item.name + " fully restores HP/MP", str(item.prop), bcolors.ENDC)
             # Attack Items
             elif isinstance(item, Item) and item.category == "attack":
 
                 enemy = player.choose_target(enemies)
-                
                 enemies[enemy].take_damage(item.prop)
-                
                 # Damage message to enemy
                 print(player.name + "Used " + item.name + " Deals", bcolors.FAIL + str(item.prop), "Damage" + bcolors.ENDC)
 
                 if enemies[enemy].get_hp() == 0:
                     print(enemies[enemy].name.replace(" ", "") + " has been slain.")
                     del enemies[enemy]
-    
     # Check if battle is over
     defeated_enemies = 0
     defeated_players = 0
@@ -199,7 +192,6 @@ while running:
     for enemy in enemies:
         if enemy.get_hp() == 0:
             defeated_enemies += 1
-   
     for player in players:
         if player.get_hp() == 0:
             defeated_players += 1
@@ -209,12 +201,12 @@ while running:
         print(bcolors.OKGREEN + "You Won!" + bcolors.ENDC)
         running = False
 
-    # Check if enemy won    
+    # Check if enemy won
     elif defeated_players == 2:
         print(bcolors.FAIL + "Your party has been defeated!" + bcolors.ENDC)
-        running = False 
+        running = False
 
-    # Enemy Attack phase               
+    # Enemy Attack phase
     for enemy in enemies:
         enemy_choice = random.randrange(0, 2)
 
@@ -224,7 +216,7 @@ while running:
             enemy_damage = enemy.generate_damage()
 
             players[target].take_damage(enemy_damage)
-            print("\n" + bcolors.FAIL + bcolors.BOLD + enemy.name.replace(" ", "") + " Attacked " + 
+            print("\n" + bcolors.FAIL + bcolors.BOLD + enemy.name.replace(" ", "") + " Attacked " +
                 str(enemy_damage) + " Of Damage to " + players[target].name.replace(" ", "") + bcolors.ENDC)
 
         # Choice of magic spells for enemy
@@ -239,7 +231,6 @@ while running:
             elif spell.charm == "black":
 
                 target = random.randrange(0, 3)
-                
                 players[target].take_damage(magic_damage)
 
                 print(bcolors.FAIL + enemy.name.replace(" ", "") + " Used " + bcolors.OKBLUE + spell.name + bcolors.ENDC + " Deals", bcolors.FAIL + str(magic_damage), "Damage to " + players[target].name.replace(" ", "") + bcolors.ENDC)
