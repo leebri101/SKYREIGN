@@ -218,7 +218,8 @@ class Person:
         else:
             current_mp = mp_string
 
-        print(f"\n{bcolors.BOLD}{self.name}  HP: {current_hp}|{bcolors.OKGREEN}{hp_bar}{bcolors.ENDC}|" f"{bcolors.BOLD}  MP: {current_mp}|{bcolors.OKBLUE}{mp_bar}{bcolors.ENDC}|")
+        print(f"\n{self.name}  HP: {current_hp}|{bcolors.OKGREEN}{hp_bar}{bcolors.ENDC}|"
+        f" MP: {current_mp}|{bcolors.OKBLUE}{mp_bar}{bcolors.ENDC}|")
 
     def choose_enemy_spell(self):
         magic_choice = random.randrange(0, len(self.magic))

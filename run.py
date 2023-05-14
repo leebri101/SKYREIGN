@@ -216,7 +216,7 @@ while running:
             enemy_damage = enemy.generate_damage()
 
             players[target].take_damage(enemy_damage)
-            print(f"\n{bcolors.FAIL}{enemy.name.replace(' ', '')} Attacked {str(enemy_damage)} Of Damage to {players[target].name.replace(' ', '')}{bcolors.ENDC}")
+            print(f"\n{bcolors.FAIL}{enemy.name.replace(' ', '')} Attacked {str(enemy_damage)} Damage to {players[target].name.replace(' ', '')}{bcolors.ENDC}")
 
         # Choice of magic spells for enemy
         elif enemy_choice == 1:
@@ -226,19 +226,14 @@ while running:
             # Recovery and attack spells for enemy
             if spell.charm == "white":
                 enemy.heal(magic_damage)
-                print("\n" + bcolors.FAIL + enemy.name.replace(" ", "") + " Used " + bcolors.OKGREEN + spell.name + " Healed", str(magic_damage), "HP" + bcolors.ENDC)
+                print(f"\n{bcolors.FAIL}{enemy.name.replace(" ", "")} Used {bcolors.OKGREEN}{spell.name} Healed {str(magic_damage)} HP{bcolors.ENDC}")
+
             elif spell.charm == "black":
 
                 target = random.randrange(0, 3)
                 players[target].take_damage(magic_damage)
-
-                print(bcolors.FAIL + enemy.name.replace(" ", "") + " Used " + bcolors.OKBLUE + spell.name + bcolors.ENDC + " Deals", bcolors.FAIL + str(magic_damage), "Damage to " + players[target].name.replace(" ", "") + bcolors.ENDC)
                 print(f"{bcolors.FAIL}{enemy.name.replace(' ', '')} Used {bcolors.OKBLUE}{spell.name}{bcolors.ENDC} Deals "
                 f"{bcolors.FAIL}{str(magic_damage)} Damage to {players[target].name.replace(' ', '')}{bcolors.ENDC}")
-
-                
                 if players[target].get_hp() == 0:
-                print(f"{players[target].name.replace(' ', '')} has been slain.")
-del players[player]
-
-
+                    print(players[taraget].name.replace(" ", "") + " died")
+                    del players[player]
