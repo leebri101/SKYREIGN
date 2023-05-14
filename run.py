@@ -117,7 +117,7 @@ while running:
             current_mp = player.get_mp()
 
             if spell.cost > current_mp:
-                print(f"{bcolors.FAIL}{bcolors.BOLD}Not enough MP{bcolors.ENDC}")
+                print(f"{bcolors.FAIL}No MP left{bcolors.ENDC}")
                 continue
 
             player.reduce_mp(spell.cost)
