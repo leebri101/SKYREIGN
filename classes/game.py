@@ -36,16 +36,16 @@ class Person:
     """
     Random generation of atk damage
     """
-    def generate_damage(self):
+    def generate_dmg(self):
         return random.randrange(self.atkl, self.atkh)
 
-    def generate_spell_damage(self, i):
+    def generate_spell_dmg(self, i):
         mgl = self.magic[i]["dmg"] - 5
         mgh = self.magic[i]["dmg"] + 5
         return random.randrange(mgl, mgh)
 
-    def take_damage(self, damage):
-        self.hp -= damage
+    def take_dmg(self, dmg):
+        self.hp -= dmg
         if self.hp < 0:
             self.hp = 0
         return self.hp
@@ -53,8 +53,8 @@ class Person:
     # Healing and restoration of MP
     # HP stats,
     # MP stats
-    def heal(self, damage):
-        self.hp += damage
+    def heal(self, dmg):
+        self.hp += dmg
         if self.hp > self.maxhp:
             self.hp = self.maxhp
 
@@ -168,7 +168,8 @@ class Person:
         else:
             current_hp = hp_string
 
-        print(f"\n{bcolors.BOLD}{self.name} HP: {current_hp}|{bcolors.FAIL}{hp_bar}{bcolors.ENDC}|")
+        print(f"\n{self.name} HP: {current_hp}|{bcolors.FAIL}{hp_bar}{bcolors.ENDC}|")
+
     """
     Player stat bars,
     which are shown,
@@ -218,17 +219,18 @@ class Person:
         else:
             current_mp = mp_string
 
-        print(f"\n{self.name}  HP: {current_hp}|{bcolors.OKGREEN}{hp_bar}{bcolors.ENDC}|"
-        f" MP: {current_mp}|{bcolors.OKBLUE}{mp_bar}{bcolors.ENDC}|")
+        print(f"\n{self.name} HP: {current_hp}|{bcolors.OKGREEN}{hp_bar}"
+              f"{bcolors.ENDC}| MP: {current_mp}|{bcolors.OKBLUE}{mp_bar}"
+              f"{bcolors.ENDC}|")
 
     def choose_enemy_spell(self):
         magic_choice = random.randrange(0, len(self.magic))
         spell = self.magic[magic_choice]
-        magic_damage = spell.generate_damage()
+        magic_dmg = spell.generate_dmg()
 
         pct = self.hp / self.maxhp * 100
 
         if self.mp < spell.cost or spell.charm == "white" and pct > 50:
             self.choose_enemy_spell()
         else:
-            return spell, magic_damage
+            return spell, magic_dmg

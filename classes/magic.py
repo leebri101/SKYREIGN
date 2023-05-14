@@ -3,16 +3,16 @@ import random
 
 
 class Spell:
-    def __init__(self, name, cost, damage, charm):
+    def __init__(self, name, cost, dmg, charm):
         self.name = name
         self.cost = cost
-        self.damage = damage
+        self.dmg = dmg
         self.charm = charm
 
     """
     Generation of spell damage
     """
-    def generate_damage(self):
-        low = self.damage - 15
-        high = self.damage + 15
+    def generate_dmg(self):
+        low = self.dmg - 15
+        high = self.dmg + 15
         return random.randrange(low, high)
