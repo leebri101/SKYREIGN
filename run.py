@@ -233,11 +233,12 @@ while running:
                 players[target].take_damage(magic_damage)
 
                 print(bcolors.FAIL + enemy.name.replace(" ", "") + " Used " + bcolors.OKBLUE + spell.name + bcolors.ENDC + " Deals", bcolors.FAIL + str(magic_damage), "Damage to " + players[target].name.replace(" ", "") + bcolors.ENDC)
+                print(f"{bcolors.FAIL}{enemy.name.replace(' ', '')} Used {bcolors.OKBLUE}{spell.name}{bcolors.ENDC} Deals "
+                f"{bcolors.FAIL}{str(magic_damage)} Damage to {players[target].name.replace(' ', '')}{bcolors.ENDC}")
 
-print(f"{bcolors.FAIL}{enemy.name.replace(' ', '')} Used {bcolors.OKBLUE}{spell.name}{bcolors.ENDC} Deals "
-      f"{bcolors.FAIL}{str(magic_damage)} Damage to {players[target].name.replace(' ', '')}{bcolors.ENDC}")
-
-
+                
                 if players[target].get_hp() == 0:
-                    print(f"{players[target].name.replace(' ', '')} has been slain.")
-                    del players[player]
+                print(f"{players[target].name.replace(' ', '')} has been slain.")
+del players[player]
+
+
