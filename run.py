@@ -91,7 +91,6 @@ while running:
         else:
             break
 
-        
         # Check if all conditions are met
         if type(choice) != int:
             break
@@ -102,20 +101,19 @@ while running:
         print(f"{bcolors.WHITE}{bcolors.BOLD}================================")
 
         if index == 0:
-            
-                dmg = player.generate_dmg()
-                enemy = player.choose_target(enemies)
+            dmg = player.generate_dmg()
+            enemy = player.choose_target(enemies)
 
-                if enemy < len(enemies):
-                    enemies[enemy].take_dmg(dmg)
+            if enemy < len(enemies):
+                enemies[enemy].take_dmg(dmg)
 
-                    # Display of regular attack damage
-                    print("")
-                    print(f"Attacked {enemies[enemy].name.replace('' ,'')}{bcolors.FAIL}{dmg} of DMG{bcolors.ENDC}")
+            # Display of regular attack damage
+            print("")
+            print(f"Attacked {enemies[enemy].name.replace('' ,'')}{bcolors.FAIL}{dmg} of DMG{bcolors.ENDC}")
 
-                    print("")
-                    if enemies[enemy].get_hp() == 0:
-                        print(enemies[enemy].name.replace(" ", "") + " died")
+            print("")
+            if enemies[enemy].get_hp() == 0:
+                print(enemies[enemy].name.replace(" ", "") + " died")
 
         # choice of spell options
         elif index == 1:
