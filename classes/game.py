@@ -119,7 +119,7 @@ class Person:
         i = 1
         print(f"\n{bcolors.OKGREEN}{bcolors.BOLD}Select Item:{bcolors.ENDC}")
         for item in self.items:
-            print(f" {i}.{item['item'].name}{item['item'].info}(x{item['amount']})")
+            print(f"{i}.{item['item'].name} {item['item'].info} (x{item['amount']})")
             i += 1
     """
     Players having the choice
@@ -222,7 +222,11 @@ class Person:
         print(f"\n{self.name} HP: {current_hp}|{bcolors.OKGREEN}{hp_bar}"
               f"{bcolors.ENDC}| MP: {current_mp}|{bcolors.OKBLUE}{mp_bar}"
               f"{bcolors.ENDC}|")
-
+              
+    '''
+    Enemies can choose spells
+    to attack players at random
+    '''
     def choose_enemy_spell(self):
         magic_choice = random.randrange(0, len(self.magic))
         spell = self.magic[magic_choice]

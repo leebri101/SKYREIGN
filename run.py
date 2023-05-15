@@ -220,21 +220,23 @@ while running:
 
         # Choice of magic spells for enemy
         elif enemy_choice == 1:
-            spell, magic_dmg = enemy.choose_enemy_spell()
-            enemy.reduce_mp(spell.cost)
+            spell_info = enemy.choose_enemy_spell()
+            if spell_info:
+                spell, magic_dmg = enemy.choose_enemy_spell()
+                enemy.reduce_mp(spell.cost)
             
-            # Recovery and attack spells for enemy
-            if spell.charm == "white":
-                enemy.heal(magic_dmg)
+                # Recovery and attack spells for enemy
+                if spell.charm == "white":
+                    enemy.heal(magic_dmg)
+                    print(f"\n{bcolors.FAIL}{enemy.name.replace(' ', '')} Used {bcolors.ENDC}")
+                    print(f"\n{bcolors.OKGREEN}{spell.name} Healed {str(magic_dmg)} HP{bcolors.ENDC}")
+                elif spell.charm == "black":
+                    target = random.randrange(0, 3)
+                    players[target].take_dmg(magic_dmg)
+                    print(f"{bcolors.FAIL}{enemy.name.replace(' ', '')} Used {spell.name} Deals {str(magic_dmg)} Damage to {players[target].name.replace(' ', '')}{bcolors.ENDC}")
 
-                print(f"\n{bcolors.FAIL}{enemy.name.replace(' ', '')} Used {bcolors.ENDC}")
-                print(f"\n{bcolors.OKGREEN}{spell.name} Healed {str(magic_dmg)} HP{bcolors.ENDC}")
-            elif spell.charm == "black":
-
-                target = random.randrange(0, 3)
-                players[target].take_dmg(magic_dmg)
-                print(f"{bcolors.FAIL}{enemy.name.replace(' ', '')} Used {spell.name} Deals {str(magic_dmg)} Damage to {players[target].name.replace(' ', '')}{bcolors.ENDC}")
-
-                if players[target].get_hp() == 0:
-                    print(players[target].name.replace(" ", "") + " died")
-                    del players[target]
+                    if players[target].get_hp() == 0:
+                        print(players[target].name.replace(" ", "") + " died")
+                        del players[target]
+            else:
+                print(f"{bcolors.FAIL}{enemy.name.replace(' ', '')} did not choose spell{bcolors.ENDC}")
