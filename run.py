@@ -253,6 +253,5 @@ while running:
 
                     if players[target].get_hp() == 0:
                         print(players[target].name.replace(" ", "") + " died")
-                        del players[target]
             else:
                 print(f"{bcolors.FAIL}{enemy.name.replace(' ', '')} didn't choose spell{bcolors.ENDC}")
