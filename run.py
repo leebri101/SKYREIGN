@@ -84,15 +84,16 @@ while running:
         player.choose_action()
         print("")
         print("Please enter in a number between 1-3")
+        choice = int(input(f"{bcolors.CYAN}  Choose Action:"))
         # check if choice is in one of the options
-        if choice != 1 or !=2 or !=3:
+        if choice != 1 and choice != 2 and choice != 3:
             print("Inavlid input please select between 1-3")
         else:
             break
 
-        choice = input(bcolors + "Choose Action:")
+        
         # Check if all conditions are met
-        if isinstance(choice, int) and int(choice) in [1, 2, 3]:
+        if type(choice) != int:
             break
         else:
             print("Please select and option")
