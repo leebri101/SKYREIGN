@@ -214,9 +214,6 @@ while running:
                         print("Press Enter to continue...")
     # Returns to choose action if index is invalid
     else:
-        print("Inavalid Choice, please shoose again.")
-
-    print("")
     input("Press Enter to continue...")
 
     # Check if battle is over
