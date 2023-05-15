@@ -222,7 +222,7 @@ while running:
         elif enemy_choice == 1:
             spell, magic_dmg = enemy.choose_enemy_spell()
             enemy.reduce_mp(spell.cost)
-
+            
             # Recovery and attack spells for enemy
             if spell.charm == "white":
                 enemy.heal(magic_dmg)
