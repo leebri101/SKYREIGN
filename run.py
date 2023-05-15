@@ -37,15 +37,15 @@ holy_grenade = Item("Holy-Grenade", "attack", "Deals 500 DMG", 500)
 player_spells = [fire, thunder, blizzard, meteor, comet, cure, cura, curaga]
 boss_spells = [flame, shadow, void, darkness, cure, cura]
 enemy_spells = [flame, thrash, cure]
-player_items = [{"item": potion, "amount": 15},
-                {"item": hi_potion, "amount": 10},
-                {"item": super_potion, "amount": 5},
-                {"item": ether, "amount": 10},
-                {"item": elixir, "amount": 5},
-                {"item": hi_elixir, "amount": 2},
-                {"item": kunai, "amount": 15},
-                {"item": grenade, "amount": 10},
-                {"item": holy_grenade, "amount": 5}]
+player_items = [{"item": potion, "sum": 15},
+                {"item": hi_potion, "sum": 10},
+                {"item": super_potion, "sum": 5},
+                {"item": ether, "sum": 10},
+                {"item": elixir, "sum": 5},
+                {"item": hi_elixir, "sum": 2},
+                {"item": kunai, "sum": 15},
+                {"item": grenade, "sum": 10},
+                {"item": holy_grenade, "sum": 5}]
 player1 = Person("Hero  ", 4550, 100, 200, 40, player_spells, player_items)
 player2 = Person("Gusak ", 6450, 150, 250, 70, player_spells, player_items)
 player3 = Person("Elora ", 3500, 200, 175, 35, player_spells, player_items)
@@ -83,14 +83,25 @@ while running:
         # Player choice of attack
         player.choose_action()
         print("")
-        choice = input(bcolors.CYAN + "Choose Action:")
-        index = int(choice) - 1
+        print("Please enter in a number between 1-3")
+        # check if choice is in one of the options
+        if choice != 1 or !=2 or !=3:
+            print("Inavlid input please select between 1-3")
+        else:
+            break
+
+        choice = input(bcolors + "Choose Action:")
+        # Check if all conditions are met
+        if isinstance(choice, int) and int(choice) in [1, 2, 3]:
+            break
+        else:
+            print("Please select and option")
 
         print("")
         print(f"{bcolors.WHITE}{bcolors.BOLD}================================")
 
         if index == 0:
-            while True:
+            
                 dmg = player.generate_dmg()
                 enemy = player.choose_target(enemies)
 
@@ -104,13 +115,6 @@ while running:
                     print("")
                     if enemies[enemy].get_hp() == 0:
                         print(enemies[enemy].name.replace(" ", "") + " died")
-                        del enemies[enemy]
-
-                    # Exit the inner loop after a enemy is attacked
-                    break
-
-                else:
-                    print("Press Enter to continue...")
 
         # choice of spell options
         elif index == 1:
@@ -123,9 +127,9 @@ while running:
             spell = player.magic[magic_choice]
             magic_dmg = spell.generate_dmg()
 
-            current_mp = player.get_mp()
+            mp_now = player.get_mp()
 
-            if spell.cost > current_mp:
+            if spell.cost > mp_now:
                 print(f"{bcolors.FAIL}No MP left{bcolors.ENDC}")
                 continue
 
@@ -134,7 +138,7 @@ while running:
             # White and Black magic
             if spell.charm == "white":
                 player.heal(magic_dmg)
-                print(f"{bcolors.OKGREEN}\n{spell.name}{player.name} Heals {magic_dmg} HP{bcolors.ENDC}")
+                print(f"{bcolors.GREEN}\n{spell.name}{player.name} Heals {magic_dmg} HP{bcolors.ENDC}")
 
             elif spell.charm == "black":
                 while True:
@@ -146,13 +150,6 @@ while running:
 
                         if enemies[enemy].get_hp() == 0:
                             print(enemies[enemy].name.replace(" ", "") + " died")
-                            del enemies[enemy]
-
-                        # Exit the inner loop after a enemy is attacked
-                        break
-
-                    else:
-                        print("Press Enter to continue...")
 
         # Item choices for player to use
         elif index == 2:
@@ -167,17 +164,17 @@ while running:
             item = player.items[item_choice]["item"]
 
             # Display of item choices with amount and message of no items left
-            if player.items[item_choice]["amount"] == 0:
+            if player.items[item_choice]["sum"] == 0:
                 print(f"{bcolors.FAIL}\n No {item.name} left {bcolors.ENDC}")
                 continue
             # Prompt of item selection
-            player.items[item_choice]["amount"] -= 1
+            player.items[item_choice]["sum"] -= 1
             print("Selected Item: " + item.name)
 
             # Recovery Items
             if isinstance(item, Item) and item.category == "potion":
                 player.heal(item.prop)
-                print(f"{bcolors.OKGREEN}\n{item.name} Healed {str(item.prop)} HP{bcolors.ENDC}")
+                print(f"{bcolors.GREEN}\n{item.name} Healed {str(item.prop)} HP{bcolors.ENDC}")
 
             elif isinstance(item, Item) and item.category == "ether":
                 player.restore_mp(item.prop)
@@ -205,16 +202,6 @@ while running:
 
                         if enemies[enemy].get_hp() == 0:
                             print(enemies[enemy].name.replace(" ", "") + " died")
-                            del enemies[enemy]
-
-                        # Exit the inner loop after a enemy is attacked
-                        break
-
-                    else:
-                        print("Press Enter to continue...")
-    # Returns to choose action if index is invalid
-    else:
-    input("Press Enter to continue...")
 
     # Check if battle is over
     defeated_enemies = 0
@@ -229,7 +216,7 @@ while running:
 
     # Check if player won
     if defeated_enemies == 2:
-        print(bcolors.OKGREEN + "You Won!" + bcolors.ENDC)
+        print(bcolors.GREEN + "You Won!" + bcolors.ENDC)
         running = False
 
     # Check if enemy won
@@ -259,7 +246,7 @@ while running:
                 if spell.charm == "white":
                     enemy.heal(magic_dmg)
                     print(f"\n{bcolors.FAIL}{enemy.name.replace(' ', '')} Used {bcolors.ENDC}")
-                    print(f"\n{bcolors.OKGREEN}{spell.name} Healed {str(magic_dmg)} HP{bcolors.ENDC}")
+                    print(f"\n{bcolors.GREEN}{spell.name} Healed {str(magic_dmg)} HP{bcolors.ENDC}")
                 elif spell.charm == "black":
                     target = random.randrange(0, 3)
                     players[target].take_dmg(magic_dmg)

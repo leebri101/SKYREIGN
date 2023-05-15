@@ -7,14 +7,13 @@ class bcolors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
     WARNING = '\033[93m'
-    OKGREEN = '\033[92m'
+    GREEN = '\033[92m'
     FAIL = '\033[91m'
     WHITE = '\033[37m'
     CYAN = '\033[36m'
     MAGENTA = '\033[35m'
     ENDC = '\033[0m'
     BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
 
 
 # Coding which defines
@@ -58,8 +57,8 @@ class Person:
         if self.hp > self.maxhp:
             self.hp = self.maxhp
 
-    def restore_mp(self, amount):
-        self.mp += amount
+    def restore_mp(self, sum):
+        self.mp += sum
         if self.mp > self.maxmp:
             self.mp = self.maxmp
 
@@ -96,7 +95,7 @@ class Person:
         print("")
         print(bcolors.BOLD + self.name + bcolors.ENDC)
         print("")
-        print(f"{bcolors.OKGREEN}{bcolors.BOLD}Pick An Action:{bcolors.ENDC}")
+        print(f"{bcolors.GREEN}{bcolors.BOLD}Pick An Action:{bcolors.ENDC}")
 
         for item in self.actions:
             print("  " + str(i) + ".", item)
@@ -117,9 +116,10 @@ class Person:
     """
     def choose_item(self):
         i = 1
-        print(f"\n{bcolors.OKGREEN}{bcolors.BOLD}Select Item:{bcolors.ENDC}")
+        print(f"\n{bcolors.GREEN}{bcolors.BOLD}Select Item:{bcolors.ENDC}")
         for item in self.items:
-            print(f"{i}.{item['item'].name} {item['item'].info} (x{item['amount']})")
+            txt = f"{i}.{item['item'].name} {item['item'].info} (x{item['sum']})"
+            print(txt)
             i += 1
     """
     Players having the choice
@@ -156,22 +156,23 @@ class Person:
             hp_bar += " "
 
         hp_string = str(self.hp) + "/" + str(self.maxhp)
-        current_hp = ""
+        hp_now = ""
 
         if len(hp_string) < 11:
             decreased = 11 - len(hp_string)
             while decreased > 0:
-                current_hp += " "
+                hp_now += " "
                 decreased -= 1
 
-            current_hp += hp_string
+            hp_now += hp_string
         else:
-            current_hp = hp_string
+            hp_now = hp_string
 
-        print(f"\n{self.name} HP: {current_hp}|{bcolors.FAIL}{hp_bar}{bcolors.ENDC}|")
+        txt = f"\n{self.name} HP: {hp_now}|{bcolors.FAIL}{hp_bar}{bcolors.ENDC}|"
+        print(txt)
 
     """
-    Player stat bars,
+    Player stat bars,s
     which are shown,
     with HP and MP bar,
     green for HP and
@@ -195,33 +196,34 @@ class Person:
         while len(mp_bar) < 10:
             mp_bar += " "
         hp_string = str(self.hp) + "/" + str(self.maxhp)
-        current_hp = ""
+        hp_now = ""
 
         if len(hp_string) < 9:
             decreased = 9 - len(hp_string)
             while decreased > 0:
-                current_hp += " "
+                hp_now += " "
                 decreased -= 1
 
-            current_hp += hp_string
+            hp_now += hp_string
         else:
-            current_hp = hp_string
+            hp_now = hp_string
         mp_string = str(self.mp) + "/" + str(self.maxmp)
-        current_mp = ""
+        mp_now = ""
 
         if len(mp_string) < 7:
             decreased = 7 - len(mp_string)
             while decreased > 0:
-                current_mp += " "
+                mp_now += " "
                 decreased -= 1
 
-            current_mp += mp_string
+            mp_now += mp_string
         else:
-            current_mp = mp_string
+            mp_now = mp_string
 
-        print(f"\n{self.name} HP: {current_hp}|{bcolors.OKGREEN}{hp_bar}"
-              f"{bcolors.ENDC}| MP: {current_mp}|{bcolors.OKBLUE}{mp_bar}"
-              f"{bcolors.ENDC}|")
+        txt = f"\n{self.name} HP:{hp_now}|{bcolors.GREEN}{hp_bar}{bcolors.ENDC}|"
+        print(txt)
+        txt = f"\nMP: {mp_now}|{bcolors.OKBLUE}{mp_bar}{bcolors.ENDC}|"
+        print(txt)
     '''
     Enemies can choose spells
     to attack players at random
