@@ -222,7 +222,6 @@ class Person:
         print(f"\n{self.name} HP: {current_hp}|{bcolors.OKGREEN}{hp_bar}"
               f"{bcolors.ENDC}| MP: {current_mp}|{bcolors.OKBLUE}{mp_bar}"
               f"{bcolors.ENDC}|")
-              
     '''
     Enemies can choose spells
     to attack players at random

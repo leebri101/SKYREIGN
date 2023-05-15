@@ -90,18 +90,27 @@ while running:
         print(f"{bcolors.WHITE}{bcolors.BOLD}================================")
 
         if index == 0:
-            dmg = player.generate_dmg()
-            enemy = player.choose_target(enemies)
-            enemies[enemy].take_dmg(dmg)
+            while True:
+                dmg = player.generate_dmg()
+                enemy = player.choose_target(enemies)
 
-            # Display of regular attack damage
-            print("")
-            print(f"Attacked {enemies[enemy].name.replace('' ,'')}{bcolors.FAIL}{dmg} of DMG{bcolors.ENDC}")
+                if enemy < len(enemies):
+                    enemies[enemy].take_dmg(dmg)
 
-            print("")
-            if enemies[enemy].get_hp() == 0:
-                print(enemies[enemy].name.replace(" ", "") + " died")
-                del enemies[enemy]
+                    # Display of regular attack damage
+                    print("")
+                    print(f"Attacked {enemies[enemy].name.replace('' ,'')}{bcolors.FAIL}{dmg} of DMG{bcolors.ENDC}")
+
+                    print("")
+                    if enemies[enemy].get_hp() == 0:
+                        print(enemies[enemy].name.replace(" ", "") + " died")
+                        del enemies[enemy]
+
+                    # Exit the inner loop after a enemy is attacked
+                    break
+
+                else:
+                    print("Press Enter to continue...")
 
         # choice of spell options
         elif index == 1:
@@ -128,14 +137,22 @@ while running:
                 print(f"{bcolors.OKGREEN}\n{spell.name}{player.name} Heals {magic_dmg} HP{bcolors.ENDC}")
 
             elif spell.charm == "black":
-                enemy = player.choose_target(enemies)
-                enemies[enemy].take_dmg(magic_dmg)
+                while True:
+                    enemy = player.choose_target(enemies)
 
-                print(f"{bcolors.OKBLUE}\n{spell.name} Damages {magic_dmg} to {enemies[enemy].name.replace(' ', '')}{bcolors.ENDC}")
+                    if enemy < len(enemies):
+                        enemies[enemy].take_dmg(magic_dmg)
+                        print(f"{bcolors.OKBLUE}\n{spell.name} Damages {magic_dmg} to {enemies[enemy].name.replace(' ', '')}{bcolors.ENDC}")
 
-                if enemies[enemy].get_hp() == 0:
-                    print(enemies[enemy].name.replace(" ", "") + " died")
-                    del enemies[enemy]
+                        if enemies[enemy].get_hp() == 0:
+                            print(enemies[enemy].name.replace(" ", "") + " died")
+                            del enemies[enemy]
+
+                        # Exit the inner loop after a enemy is attacked
+                        break
+
+                    else:
+                        print("Press Enter to continue...")
 
         # Item choices for player to use
         elif index == 2:
@@ -160,10 +177,11 @@ while running:
             # Recovery Items
             if isinstance(item, Item) and item.category == "potion":
                 player.heal(item.prop)
-                print(bcolors.OKGREEN + "\n" + item.name + " Healed", str(item.prop), "HP" + bcolors.ENDC)
+                print(f"{bcolors.OKGREEN}\n{item.name} Healed {str(item.prop)} HP{bcolors.ENDC}")
+
             elif isinstance(item, Item) and item.category == "ether":
                 player.restore_mp(item.prop)
-                print(bcolors.OKBLUE + "\n" + item.name + " Restored", str(item.prop), "MP" + bcolors.ENDC)
+                print(f"{bcolors.OKBLUE}\n{item.name} Restored {str(item.prop)} MP{bcolors.ENDC}")
             elif isinstance(item, Item) and item.category == "elixir":
 
                 if item.name == "Hi-Elixir":
@@ -173,18 +191,34 @@ while running:
                 else:
                     player.hp = player.maxhp
                     player.mp = player.maxmp
-                    print(bcolors.MAGENTA + bcolors.BOLD + "\n" + item.name + " fully restores HP/MP", str(item.prop), bcolors.ENDC)
+                    print(f"{bcolors.MAGENTA}\n{item.name} fully restores HP/MP {str(item.prop)}{bcolors.ENDC}")
+
             # Attack Items
             elif isinstance(item, Item) and item.category == "attack":
+                while True:
+                    enemy = player.choose_target(enemies)
+                    if enemy < len(enemies):
+                        enemies[enemy].take_dmg(item.prop)
 
-                enemy = player.choose_target(enemies)
-                enemies[enemy].take_dmg(item.prop)
-                # Damage message to enemy
-                print(player.name + "Used " + item.name + " Deals", bcolors.FAIL + str(item.prop), "Damage" + bcolors.ENDC)
+                        # Damage message to enemy
+                        print(f"{player.name} Used {item.name} Deals {bcolors.FAIL}{str(item.prop)} Damage{bcolors.ENDC}")
 
-                if enemies[enemy].get_hp() == 0:
-                    print(enemies[enemy].name.replace(" ", "") + " died")
-                    del enemies[enemy]
+                        if enemies[enemy].get_hp() == 0:
+                            print(enemies[enemy].name.replace(" ", "") + " died")
+                            del enemies[enemy]
+
+                        # Exit the inner loop after a enemy is attacked
+                        break
+
+                    else:
+                        print("Press Enter to continue...")
+    # Returns to choose action if index is invalid
+    else:
+        print("Inavalid Choice, please shoose again.")
+
+    print("")
+    input("Press Enter to continue...")
+
     # Check if battle is over
     defeated_enemies = 0
     defeated_players = 0
@@ -224,7 +258,6 @@ while running:
             if spell_info:
                 spell, magic_dmg = enemy.choose_enemy_spell()
                 enemy.reduce_mp(spell.cost)
-            
                 # Recovery and attack spells for enemy
                 if spell.charm == "white":
                     enemy.heal(magic_dmg)
@@ -239,4 +272,4 @@ while running:
                         print(players[target].name.replace(" ", "") + " died")
                         del players[target]
             else:
-                print(f"{bcolors.FAIL}{enemy.name.replace(' ', '')} did not choose spell{bcolors.ENDC}")
+                print(f"{bcolors.FAIL}{enemy.name.replace(' ', '')} didn't choose spell{bcolors.ENDC}")
